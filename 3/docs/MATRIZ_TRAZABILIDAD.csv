@@ -1,0 +1,17 @@
+﻿ID_Pantalla,Archivo_HTML,Objetivo,Contenido_o_comportamiento,Archivos_compartidos
+P01,index.html,Inicio del curso,Presentación y acceso al recorrido,css/styles.css; js/app.js
+P02,02_indice.html,Índice del curso,Módulos y progreso,css/styles.css; js/app.js
+P03,03_sistemas_digitales.html,Módulo 1 — Sistemas digitales,"Señales digitales, valores 0 y 1, sistema binario y álgebra de Boole",css/styles.css; js/app.js
+P04,04_video_sistemas.html,Módulo 1 — Video,Recurso audiovisual introductorio,css/styles.css; js/app.js
+P05,05_circuitos_logicos.html,Módulo 2 — Circuitos lógicos,"Compuertas AND, OR y NOT",css/styles.css; js/app.js
+P06,06_feedback.html,Devolución de respuesta,Retroalimentación formativa,css/styles.css; js/app.js
+P07,07_memorias.html,Módulo 3 — Memorias,"RAM, ROM y memoria caché",css/styles.css; js/app.js
+P08,08_redes.html,Módulo 4 — Redes de computadoras,"LAN, MAN, WAN y conceptos básicos",css/styles.css; js/app.js
+P09,09_practica_redes.html,Práctica — Redes,Ejercicio sobre dispositivos de red,css/styles.css; js/app.js
+P10,10_resultado_practica.html,Resultado de la práctica,Devolución de respuesta,css/styles.css; js/app.js
+P11,11_evaluacion_final.html,Evaluación final,Seis preguntas de integración,css/styles.css; js/app.js
+P12,12_resultado_evaluacion.html,Resultado de la evaluación,Puntaje y acceso al certificado,css/styles.css; js/app.js
+P13,13_certificado.html,Certificado,Vista imprimible de demostración,css/styles.css; js/app.js
+P14,14_mis_cursos.html,Mis cursos,Catálogo de ejemplo,css/styles.css; js/app.js
+P15,15_ayuda.html,Ayuda,Preguntas frecuentes,css/styles.css; js/app.js
+P16,16_error.html,Error / reintento,Estado incorrecto y recuperación,css/styles.css; js/app.js
