@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juegos educativos | Drive de Preceptores</title>
+<style>
+*{box-sizing:border-box}.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px 14px;background:#fff7fb}.login-card{width:100%;max-width:440px;background:#fff;border:2px solid #f1c8d9;border-radius:24px;padding:28px;box-shadow:0 8px 25px #d9a8bd30}.login-card label{display:block;margin:12px 0 7px;color:#765565;font-size:14px}.login-card input{width:100%;padding:13px;border:1px solid #e9bfd2;border-radius:12px;background:#fffafd;font:15px Arial}.login-card button{width:100%;margin-top:18px}.error-login{color:#b34d72;text-align:center;min-height:20px;font-size:13px}body{margin:0;background:#fff7fb;color:#503d47;font-family:Arial,sans-serif}[hidden]{display:none!important}.pantalla{display:none;min-height:100vh;padding:22px 14px}.activa{display:flex;align-items:center;justify-content:center}.caja{width:100%;max-width:850px;background:white;border:2px solid #f1c8d9;border-radius:24px;padding:28px;box-shadow:0 8px 25px #d9a8bd30}h1{font-family:"Brush Script MT","Segoe Script",cursive;font-weight:normal;text-align:center;color:#d887aa;font-size:clamp(36px,7vw,52px);margin:0 0 8px}.sub{text-align:center;text-transform:uppercase;letter-spacing:2px;font-size:14px;color:#a16d84;margin:0 0 24px}.intro{text-align:center;line-height:1.6;margin:0 auto 24px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.tarjeta{padding:19px;border:1px solid #f0cddd;border-radius:17px;background:#fff9fc}.tarjeta h2{font-size:16px;text-transform:uppercase;color:#a45f7d}.tarjeta p{font-size:14px;line-height:1.5;min-height:40px}button{border:0;border-radius:12px;padding:12px 18px;background:#e5a0bc;color:white;cursor:pointer;font-size:14px}button:hover{background:#d583a7}.sec{background:#f4dbe6;color:#765565}.centro{text-align:center}.etiqueta{display:inline-block;background:#f8dfeb;color:#a45f7d;padding:7px 13px;border-radius:20px;font-size:13px}.pregunta{font-size:21px;line-height:1.45;text-align:center;margin:22px auto;max-width:650px}.respuestas{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:650px;margin:auto}.respuestas button{min-height:55px;background:#fff5fa;color:#684959;border:1px solid #edc5d7}.respuestas button:disabled{opacity:.7}.feedback{min-height:52px;text-align:center;line-height:1.5;margin-top:18px}.progreso{height:9px;background:#f7e3ec;border-radius:10px;overflow:hidden;margin:18px 0}.barra{height:100%;width:0;background:#d887aa}.puntos{text-align:center;font-weight:bold;color:#a45f7d}.acciones{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}@media(max-width:580px){.grid,.respuestas{grid-template-columns:1fr}.caja{padding:21px 16px}.tarjeta p{min-height:0}}
+</style></head><body>
+<section id="login" class="login-wrap">
+ <main class="login-card">
+  <h1>Drive de Preceptores</h1>
+  <p class="sub">inicio de sesión</p>
+  <p class="intro">Ingresá con el usuario y la contraseña para entrar a los juegos educativos.</p>
+  <form onsubmit="event.preventDefault();iniciarSesion()">
+   <label for="usuarioLogin">Usuario</label>
+   <input id="usuarioLogin" autocomplete="username" placeholder="Ingresá tu usuario" required>
+   <label for="claveLogin">Contraseña</label>
+   <input id="claveLogin" type="password" autocomplete="current-password" placeholder="Ingresá tu contraseña" required>
+   <button type="submit">Ingresar</button>
+   <p id="errorLogin" class="error-login" aria-live="polite"></p>
+  </form>
+ </main>
+</section>
+<div id="aplicacion" hidden>
+<!-- Inicio: el jugador elige un juego educativo -->
+<section id="inicio" class="pantalla activa"><main class="caja">
+<h1>Juegos educativos</h1><p class="sub">drive de preceptores</p>
+<p class="intro">Ingresá tu nombre, elegí un tema y respondé las preguntas. Cada respuesta correcta suma <b>100 XP</b>. Si te equivocás, recibirás una explicación para aprender.</p>
+<div style="max-width:430px;margin:0 auto 24px">
+<label for="nombreJugador" style="display:block;margin:10px 0 7px;color:#765565;font-size:14px">Nombre del preceptor o jugador</label>
+<input id="nombreJugador" type="text" placeholder="Escribí tu nombre" maxlength="40" style="width:100%;padding:13px;border:1px solid #e9bfd2;border-radius:12px;background:#fffafd;font:15px Arial">
+<p id="mensajeNombre" style="color:#b34d72;text-align:center;min-height:18px;font-size:13px"></p>
+</div>
+<div class="grid">
+<article class="tarjeta"><h2>🌸 Nutrición</h2><p>Alimentación variada y hábitos saludables.</p><button onclick="empezar('nutricion')">Jugar</button></article>
+<article class="tarjeta"><h2>🌿 Medio ambiente</h2><p>Reciclaje, agua y cuidado del planeta.</p><button onclick="empezar('ambiente')">Jugar</button></article>
+<article class="tarjeta"><h2>🤝 Convivencia escolar</h2><p>Respeto, acuerdos y buen trato.</p><button onclick="empezar('convivencia')">Jugar</button></article>
+<article class="tarjeta"><h2>💻 Sistemas digitales</h2><p>Conceptos básicos de HTML, CSS y tecnología.</p><button onclick="empezar('digital')">Jugar</button></article>
+</div>
+<div style="margin-top:24px;border:1px solid #f0cddd;border-radius:17px;padding:18px;background:#fff9fc">
+<h2 style="text-transform:uppercase;font-size:16px;color:#a45f7d;text-align:center">🏆 Ranking de puntajes</h2>
+<p style="text-align:center;font-size:13px;line-height:1.5">Los resultados se guardan en este navegador de este dispositivo.</p>
+<ol id="ranking" style="padding-left:25px;line-height:1.8"></ol>
+<div class="centro"><button class="sec" onclick="reiniciarRanking()">Reiniciar ranking</button></div>
+<p id="mensajeRanking" class="feedback"></p>
+</div>
+</main></section>
+<!-- Juego: muestra una pregunta por vez, valida la respuesta y suma puntos -->
+<section id="juego" class="pantalla"><main class="caja">
+<div class="centro"><span id="nivel" class="etiqueta">Nivel básico</span></div><p id="saludoJugador" class="centro" style="margin:12px 0;color:#a16d84"></p><h1 id="tema"></h1><p id="contador" class="sub"></p>
+<div class="progreso"><div id="barra" class="barra"></div></div><p class="puntos">Puntaje: <span id="xp">0</span> XP</p>
+<p id="pregunta" class="pregunta"></p><div id="respuestas" class="respuestas"></div><p id="feedback" class="feedback" aria-live="polite"></p>
+<div class="acciones"><button id="siguiente" onclick="avanzar()" hidden>Siguiente pregunta</button><button class="sec" onclick="menu()">Volver al menú</button></div>
+</main></section>
+<!-- Resultado: muestra el puntaje final -->
+<section id="final" class="pantalla"><main class="caja centro"><h1>¡Buen trabajo!</h1><p class="sub">fin del juego</p><p id="resultado" class="intro"></p><div class="acciones"><button onclick="menu()">Elegir otro juego</button><button class="sec" onclick="repetirJuego()">Reiniciar este juego</button></div></main></section>
+<!-- JavaScript: contiene las preguntas, niveles, puntaje y navegación -->
+<script>
+const banco={
+nutricion:[
+["básico","¿Qué ayuda a tener una alimentación variada?",["Comer distintos grupos de alimentos","Comer siempre lo mismo","No desayunar nunca"],0,"La variedad aporta distintos nutrientes que el cuerpo necesita."],
+["básico","¿Qué bebida es una buena opción para hidratarse?",["Agua","Solo gaseosa","Jarabe"],0,"El agua ayuda a mantener el cuerpo hidratado."],
+["intermedio","¿Qué aportan frutas y verduras?",["Vitaminas, minerales y fibra","Nada útil","Solo azúcar"],0,"Aportan nutrientes importantes para la salud."],
+["intermedio","¿Qué hábito ayuda a la higiene de los alimentos?",["Lavarse las manos antes de cocinar","Usar utensilios sucios","No lavar frutas"],0,"La higiene reduce el riesgo de contaminación."],
+["avanzado","¿Qué es una alimentación equilibrada?",["Combinar variedad de alimentos según las necesidades","Comer un solo alimento","Eliminar siempre grupos enteros"],0,"El equilibrio consiste en combinar diferentes alimentos en cantidades adecuadas."]
+],
+ambiente:[
+["básico","¿Qué acción ayuda al ambiente?",["Separar residuos para reciclar","Tirar basura al río","Desperdiciar agua"],0,"Separar residuos permite recuperar materiales y reducir la basura."],
+["básico","¿Qué hacer al cepillarse los dientes?",["Cerrar la canilla mientras te cepillás","Dejar correr el agua","Abrir todas las canillas"],0,"Cerrar la canilla evita desperdiciar agua potable."],
+["intermedio","¿Qué significa reutilizar?",["Volver a usar un objeto","Tirarlo después de usarlo","Comprar siempre otro"],0,"Reutilizar alarga la vida útil de los objetos."],
+["intermedio","¿Qué ayuda a reducir la electricidad consumida?",["Apagar luces que no se usan","Dejar todo encendido","Abrir la heladera por mucho tiempo"],0,"Apagar luces y equipos que no se usan ahorra energía."],
+["avanzado","¿Cuál es una buena práctica para reducir residuos?",["Usar objetos reutilizables cuando sea posible","Comprar cosas descartables siempre","Mezclar toda la basura"],0,"Los objetos reutilizables pueden reducir los residuos que generamos."]
+],
+convivencia:[
+["básico","¿Qué ayuda a convivir mejor en la escuela?",["Escuchar y respetar a los demás","Burlarse de compañeros","Excluir a alguien"],0,"Escuchar y respetar crea un ambiente más seguro."],
+["básico","Si un compañero habla, ¿qué conviene hacer?",["Esperar el turno para hablar","Gritar más fuerte","Interrumpir siempre"],0,"Respetar turnos permite que todos se expresen."],
+["intermedio","¿Qué hacer ante un conflicto?",["Dialogar con respeto y pedir ayuda si hace falta","Amenazar","Difundir rumores"],0,"El diálogo y la ayuda de un adulto pueden resolver conflictos."],
+["intermedio","¿Qué significa incluir a un compañero?",["Invitarlo a participar sin discriminar","Dejarlo afuera","Ignorarlo"],0,"Incluir es dar oportunidades de participar y sentirse respetado."],
+["avanzado","¿Para qué sirven los acuerdos de convivencia?",["Para establecer pautas compartidas","Para que nadie opine","Para evitar toda comunicación"],0,"Los acuerdos explican derechos, responsabilidades y pautas comunes."]
+],
+digital:[
+["básico","¿Qué es un dispositivo de entrada?",["Teclado","Monitor","Parlante"],0,"El teclado permite ingresar datos al sistema."],
+["básico","¿Para qué sirve HTML?",["Para estructurar contenido de una página web","Para pintar una pared","Para conectar cables"],0,"HTML organiza títulos, párrafos, imágenes y enlaces."],
+["intermedio","¿Qué hace CSS?",["Define la apariencia y el diseño","Guarda comida","Es un tipo de monitor"],0,"CSS controla colores, tamaños y distribución."],
+["intermedio","¿Qué puede hacer JavaScript en una página?",["Agregar interacción","Reemplazar el teclado","Ser un cable de red"],0,"JavaScript responde a clics y actualiza el contenido."],
+["avanzado","¿Qué es un sistema digital?",["Un sistema que procesa información digital","Una hoja de papel","Un objeto sin entradas ni salidas"],0,"Los sistemas digitales procesan información representada en valores digitales."]
+]};
+const nombres={nutricion:"Nutrición",ambiente:"Medio ambiente",convivencia:"Convivencia escolar",digital:"Sistemas digitales"};
+let clave="",preguntas=[],pos=0,puntos=0,respondida=false;
+function pantalla(id){document.querySelectorAll(".pantalla").forEach(x=>x.classList.remove("activa"));document.getElementById(id).classList.add("activa")}
+function empezar(t){
+ const nombre=(document.getElementById("nombreJugador").value || "").trim();
+ if(!nombre){document.getElementById("mensajeNombre").textContent="Escribí tu nombre antes de jugar.";document.getElementById("nombreJugador").focus();return}
+ document.getElementById("mensajeNombre").textContent="";
+ clave=t;preguntas=banco[t];pos=0;puntos=0;
+ document.getElementById("tema").textContent=nombres[t];
+ document.getElementById("saludoJugador").textContent="Jugando: "+nombre;
+ pantalla("juego");dibujar()
+}
+function dibujar(){respondida=false;let q=preguntas[pos];document.getElementById("nivel").textContent="Nivel "+q[0];document.getElementById("contador").textContent="Pregunta "+(pos+1)+" de "+preguntas.length;document.getElementById("pregunta").textContent=q[1];document.getElementById("xp").textContent=puntos;document.getElementById("barra").style.width=(pos/preguntas.length*100)+"%";document.getElementById("feedback").textContent="";document.getElementById("siguiente").hidden=true;let zona=document.getElementById("respuestas");zona.innerHTML="";q[2].forEach((op,i)=>{let b=document.createElement("button");b.textContent=op;b.onclick=()=>responder(i);zona.appendChild(b)})}
+function responder(i){if(respondida)return;respondida=true;let q=preguntas[pos];document.querySelectorAll("#respuestas button").forEach(b=>b.disabled=true);if(i===q[3]){puntos+=100;document.getElementById("feedback").textContent="¡Correcto! +100 XP. "+q[4]}else{document.getElementById("feedback").textContent="No es esa. "+q[4]}document.getElementById("xp").textContent=puntos;let s=document.getElementById("siguiente");s.textContent=pos===preguntas.length-1?"Ver resultado":"Siguiente pregunta";s.hidden=false}
+function avanzar(){if(!respondida)return;pos++;if(pos>=preguntas.length){document.getElementById("barra").style.width="100%";document.getElementById("resultado").textContent="¡"+document.getElementById("nombreJugador").value.trim()+"! Terminaste "+nombres[clave]+". Tu puntaje fue "+puntos+" XP de "+preguntas.length*100+" XP.";guardarResultado();pantalla("final")}else dibujar()}
+function menu(){mostrarRanking();pantalla("inicio")}
+
+// Recupera el ranking guardado en el navegador; si no existe, empieza vacío.
+function leerRanking(){
+ try { return JSON.parse(localStorage.getItem("rankingPreceptores") || "[]"); }
+ catch(e) { return []; }
+}
+
+// Muestra los mejores resultados guardados en este dispositivo.
+function mostrarRanking(){
+ const lista=leerRanking().sort((a,b)=>b.puntos-a.puntos).slice(0,10);
+ const zona=document.getElementById("ranking");
+ zona.innerHTML="";
+ if(lista.length===0){
+  zona.innerHTML="<li>Todavía no hay resultados. ¡Jugá para aparecer acá!</li>";
+  return;
+ }
+ lista.forEach(item=>{
+  const li=document.createElement("li");
+  li.textContent=item.nombre+" — "+item.juego+": "+item.puntos+" XP";
+  zona.appendChild(li);
+ });
+}
+
+// Reinicia el ranking tras pedir confirmación.
+function reiniciarRanking(){
+ if(confirm("¿Querés borrar todos los puntajes guardados en este dispositivo?")){
+  localStorage.removeItem("rankingPreceptores");
+  mostrarRanking();
+  document.getElementById("mensajeRanking").textContent="Ranking reiniciado.";
+ }
+}
+
+// Permite repetir el juego actual desde la primera pregunta y con cero puntos.
+function repetirJuego(){
+ empezar(clave);
+}
+
+// Guarda el resultado de la partida y actualiza el ranking.
+function guardarResultado(){
+ const nombre=(document.getElementById("nombreJugador").value || "").trim();
+ const nuevo={nombre:nombre,juego:nombres[clave],puntos:puntos,fecha:new Date().toLocaleDateString("es-AR")};
+ const ranking=leerRanking();
+ ranking.push(nuevo);
+ ranking.sort((a,b)=>b.puntos-a.puntos);
+ try { localStorage.setItem("rankingPreceptores",JSON.stringify(ranking.slice(0,30))); }
+ catch(e) { document.getElementById("resultado").textContent += " No se pudo guardar el ranking en este navegador."; }
+ mostrarRanking();
+}
+
+mostrarRanking();
+function iniciarSesion(){
+ const usuario=document.getElementById("usuarioLogin").value.trim();
+ const claveIngresada=document.getElementById("claveLogin").value;
+ // Acceso de demostración para el proyecto escolar.
+ if(usuario==="Melisa" && claveIngresada==="5555"){
+  document.getElementById("errorLogin").textContent="";
+  document.getElementById("login").hidden=true;
+  document.getElementById("aplicacion").hidden=false;
+  mostrarRanking();
+ }else{
+  document.getElementById("errorLogin").textContent="Usuario o contraseña incorrectos. Revisá los datos e intentá otra vez.";
+ }
+}
+</script></div></body></html>

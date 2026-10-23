@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Préstamos de Libros</title>
+
+    <style>
+        /* ESTILOS GENERALES */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        /* MENÚ PRINCIPAL */
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        nav button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        nav button:hover {
+            background-color: #2980b9;
+        }
+
+        /* CONTENEDOR DE LAS PANTALLAS */
+        main {
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
+
+        .pantalla {
+            display: none;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .pantalla.activa {
+            display: block;
+        }
+
+        /* FORMULARIOS Y BOTONES */
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #27ae60;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #219150;
+        }
+
+        .btn-devolver {
+            margin: 0;
+            background-color: #e67e22;
+        }
+
+        .btn-devolver:hover {
+            background-color: #ca6f1e;
+        }
+
+        /* TABLAS Y BADGES */
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .badge-disponible { background-color: #27ae60; }
+        .badge-prestado { background-color: #e74c3c; }
+        .badge-devuelto { background-color: #7f8c8d; }
+
+        /* SECCIÓN AGREGAR LIBRO */
+        .agregar-libro-form {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .agregar-libro-form h3 {
+            margin-top: 0;
+        }
+
+        /* MENSAJES */
+        .mensaje {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .correcto {
+            background-color: #d5f5e3;
+            color: #176b3a;
+        }
+
+        .error {
+            background-color: #fadbd8;
+            color: #922b21;
+        }
+
+        .vacio {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO DEL SISTEMA -->
+    <header>
+        <h1>Biblioteca Escolar</h1>
+        <p>Sistema de gestión de préstamos y devoluciones</p>
+    </header>
+
+    <!-- MENÚ PRINCIPAL -->
+    <nav>
+        <button onclick="mostrarPantalla('catalogo')">
+            Catálogo
+        </button>
+
+        <button onclick="mostrarPantalla('prestamos')">
+            Registrar Préstamo
+        </button>
+
+        <button onclick="mostrarPantalla('devoluciones')">
+            Devoluciones
+        </button>
+
+        <button onclick="mostrarPantalla('historial')">
+            Historial
+        </button>
+    </nav>
+
+    <main>
+
+        <!-- PANTALLA DEL CATÁLOGO -->
+        <section id="catalogo" class="pantalla activa">
+
+            <h2>Catálogo de Libros</h2>
+
+            <div class="agregar-libro-form">
+                <h3>Agregar Nuevo Libro</h3>
+                
+                <label for="nuevoNombre">Título del libro:</label>
+                <input type="text" id="nuevoNombre" placeholder="Ingrese título">
+
+                <label for="nuevoAutor">Autor:</label>
+                <input type="text" id="nuevoAutor" placeholder="Ingrese autor">
+
+                <button class="btn" onclick="agregarLibro()">Añadir al Catálogo</button>
+
+                <div id="mensajeLibro"></div>
+            </div>
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Libro</th>
+                            <th>Autor</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaLibros">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- PANTALLA PARA REGISTRAR PRÉSTAMOS -->
+        <section id="prestamos" class="pantalla">
+
+            <h2>Registrar préstamo</h2>
+
+            <label for="alumno">
+                Nombre y apellido:
+            </label>
+
+            <input
+                type="text"
+                id="alumno"
+                placeholder="Ingrese nombre y apellido"
+            >
+
+
+            <label for="dni">
+                DNI:
+            </label>
+
+            <input
+                type="number"
+                id="dni"
+                placeholder="Ingrese DNI"
+            >
+
+
+            <label for="curso">
+                Curso:
+            </label>
+
+            <input
+                type="text"
+                id="curso"
+                placeholder="Ej: 4°B"
+            >
+
+
+            <label for="libroPrestamo">
+                Libro:
+            </label>
+
+            <select id="libroPrestamo">
+            </select>
+
+
+            <label for="fechaPrestamo">
+                Fecha del préstamo:
+            </label>
+
+            <input
+                type="date"
+                id="fechaPrestamo"
+            >
+
+
+            <button
+                class="btn"
+                onclick="registrarPrestamo()">
+
+                Registrar préstamo
+
+            </button>
+
+            <div id="mensajePrestamo"></div>
+
+        </section>
+
+
+        <!-- PANTALLA DE DEVOLUCIONES -->
+        <section id="devoluciones" class="pantalla">
+
+            <h2>Devoluciones pendientes</h2>
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>DNI</th>
+                            <th>Curso</th>
+                            <th>Libro</th>
+                            <th>Fecha préstamo</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaDevoluciones">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- PANTALLA DEL HISTORIAL -->
+        <section id="historial" class="pantalla">
+
+            <h2>Historial de préstamos</h2>
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Alumno</th>
+                            <th>DNI</th>
+                            <th>Curso</th>
+                            <th>Libro</th>
+                            <th>Fecha préstamo</th>
+                            <th>Fecha devolución</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaHistorial">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* DATOS INICIALES Y PERSISTENCIA (localStorage) */
+
+        const librosIniciales = [
+            { id: 1, nombre: "El Principito", autor: "Antoine de Saint-Exupéry", disponible: true },
+            { id: 2, nombre: "Don Quijote", autor: "Miguel de Cervantes", disponible: true },
+            { id: 3, nombre: "1984", autor: "George Orwell", disponible: true },
+            { id: 4, nombre: "Harry Potter", autor: "J. K. Rowling", disponible: true }
+        ];
+
+        let libros = JSON.parse(localStorage.getItem('libros')) || librosIniciales;
+        let prestamos = JSON.parse(localStorage.getItem('prestamos')) || [];
+
+        function guardarDatos() {
+            localStorage.setItem('libros', JSON.stringify(libros));
+            localStorage.setItem('prestamos', JSON.stringify(prestamos));
+        }
+
+
+        /* CAMBIA ENTRE LAS DISTINTAS PANTALLAS */
+
+        function mostrarPantalla(id) {
+
+            let pantallas = document.querySelectorAll(".pantalla");
+
+            pantallas.forEach(function(pantalla) {
+                pantalla.classList.remove("activa");
+            });
+
+            document.getElementById(id).classList.add("activa");
+
+            actualizarCatalogo();
+            actualizarListaLibros();
+            actualizarHistorial();
+            mostrarListaDevoluciones();
+        }
+
+
+        /* AGREGAR UN NUEVO LIBRO AL CATÁLOGO */
+
+        function agregarLibro() {
+            let nombre = document.getElementById("nuevoNombre").value.trim();
+            let autor = document.getElementById("nuevoAutor").value.trim();
+            let mensaje = document.getElementById("mensajeLibro");
+
+            if (nombre === "" || autor === "") {
+                mensaje.innerHTML = "Complete el título y el autor.";
+                mensaje.className = "mensaje error";
+                return;
+            }
+
+            let nuevoLibro = {
+                id: Date.now(),
+                nombre: nombre,
+                autor: autor,
+                disponible: true
+            };
+
+            libros.push(nuevoLibro);
+            guardarDatos();
+
+            document.getElementById("nuevoNombre").value = "";
+            document.getElementById("nuevoAutor").value = "";
+
+            mensaje.innerHTML = "Libro agregado correctamente.";
+            mensaje.className = "mensaje correcto";
+
+            actualizarCatalogo();
+            actualizarListaLibros();
+        }
+
+
+        /* MUESTRA LOS LIBROS Y SU ESTADO */
+
+        function actualizarCatalogo() {
+
+            let tabla = document.getElementById("tablaLibros");
+            tabla.innerHTML = "";
+
+            libros.forEach(function(libro) {
+
+                let badgeClass = libro.disponible ? "badge-disponible" : "badge-prestado";
+                let estadoTexto = libro.disponible ? "Disponible" : "Prestado";
+
+                tabla.innerHTML += `
+                    <tr>
+                        <td>${libro.nombre}</td>
+                        <td>${libro.autor}</td>
+                        <td><span class="badge ${badgeClass}">${estadoTexto}</span></td>
+                    </tr>
+                `;
+
+            });
+
+        }
+
+
+        /* CARGA SOLAMENTE LOS LIBROS DISPONIBLES EN EL SELECT */
+
+        function actualizarListaLibros() {
+
+            let select = document.getElementById("libroPrestamo");
+            select.innerHTML = "";
+
+            let disponibles = libros.filter(function(libro) {
+                return libro.disponible;
+            });
+
+            if (disponibles.length === 0) {
+                select.innerHTML = `<option value="">No hay libros disponibles</option>`;
+                return;
+            }
+
+            disponibles.forEach(function(libro) {
+                select.innerHTML += `
+                    <option value="${libro.id}">
+                        ${libro.nombre}
+                    </option>
+                `;
+            });
+
+        }
+
+
+        /* REGISTRA UN NUEVO PRÉSTAMO */
+
+        function registrarPrestamo() {
+
+            let alumno = document.getElementById("alumno").value.trim();
+            let dni = document.getElementById("dni").value.trim();
+            let curso = document.getElementById("curso").value.trim();
+            let idLibro = Number(document.getElementById("libroPrestamo").value);
+            let fecha = document.getElementById("fechaPrestamo").value;
+            let mensaje = document.getElementById("mensajePrestamo");
+
+
+            /* VALIDAMOS LOS CAMPOS */
+
+            if (alumno === "" || dni === "" || curso === "" || fecha === "" || !idLibro) {
+                mensaje.innerHTML = "Complete todos los campos.";
+                mensaje.className = "mensaje error";
+                return;
+            }
+
+
+            /* BUSCAMOS EL LIBRO POR ID */
+
+            let libro = libros.find(function(l) {
+                return l.id === idLibro;
+            });
+
+
+            if (!libro || !libro.disponible) {
+                mensaje.innerHTML = "Ese libro no está disponible.";
+                mensaje.className = "mensaje error";
+                return;
+            }
+
+
+            /* CREAMOS Y GUARDAMOS EL PRÉSTAMO */
+
+            let nuevoPrestamo = {
+                id: Date.now(),
+                alumno: alumno,
+                dni: dni,
+                curso: curso,
+                idLibro: libro.id,
+                libroNombre: libro.nombre,
+                fechaPrestamo: fecha,
+                fechaDevolucion: "",
+                estado: "Prestado"
+            };
+
+            prestamos.push(nuevoPrestamo);
+            libro.disponible = false;
+
+            guardarDatos();
+
+
+            mensaje.innerHTML = "Préstamo registrado correctamente.";
+            mensaje.className = "mensaje correcto";
+
+
+            /* LIMPIAMOS LOS CAMPOS */
+
+            document.getElementById("alumno").value = "";
+            document.getElementById("dni").value = "";
+            document.getElementById("curso").value = "";
+            document.getElementById("fechaPrestamo").value = "";
+
+
+            actualizarCatalogo();
+            actualizarListaLibros();
+            actualizarHistorial();
+            mostrarListaDevoluciones();
+
+        }
+
+
+        /* MUESTRA LA LISTA DE PRÉSTAMOS PENDIENTES */
+
+        function mostrarListaDevoluciones() {
+
+            let tabla = document.getElementById("tablaDevoluciones");
+            tabla.innerHTML = "";
+
+            let pendientes = prestamos.filter(function(prestamo) {
+                return prestamo.estado === "Prestado";
+            });
+
+            if (pendientes.length === 0) {
+                tabla.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="vacio">
+                            No hay préstamos pendientes.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            pendientes.forEach(function(prestamo) {
+                tabla.innerHTML += `
+                    <tr>
+                        <td>${prestamo.alumno}</td>
+                        <td>${prestamo.dni}</td>
+                        <td>${prestamo.curso}</td>
+                        <td>${prestamo.libroNombre}</td>
+                        <td>${prestamo.fechaPrestamo}</td>
+                        <td>
+                            <button
+                                class="btn btn-devolver"
+                                onclick="registrarDevolucion(${prestamo.id})">
+                                Devolver
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+        }
+
+
+        /* REGISTRA LA DEVOLUCIÓN */
+
+        function registrarDevolucion(idPrestamo) {
+
+            let prestamo = prestamos.find(function(p) {
+                return p.id === idPrestamo;
+            });
+
+            if (!prestamo) return;
+
+
+            /* FECHA ACTUAL Y CAMBIO DE ESTADO */
+
+            let hoy = new Date().toISOString().split("T")[0];
+
+            prestamo.fechaDevolucion = hoy;
+            prestamo.estado = "Devuelto";
+
+
+            /* DISPONIBILIZAMOS EL LIBRO DE NUEVO */
+
+            let libro = libros.find(function(l) {
+                return l.id === prestamo.idLibro;
+            });
+
+            if (libro) {
+                libro.disponible = true;
+            }
+
+            guardarDatos();
+
+
+            actualizarCatalogo();
+            actualizarListaLibros();
+            actualizarHistorial();
+            mostrarListaDevoluciones();
+
+        }
+
+
+        /* MUESTRA TODOS LOS PRÉSTAMOS EN EL HISTORIAL */
+
+        function actualizarHistorial() {
+
+            let tabla = document.getElementById("tablaHistorial");
+            tabla.innerHTML = "";
+
+            if (prestamos.length === 0) {
+                tabla.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="vacio">
+                            Todavía no hay préstamos registrados.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+
+            prestamos.forEach(function(prestamo) {
+                let badgeClass = prestamo.estado === "Prestado" ? "badge-prestado" : "badge-devuelto";
+
+                tabla.innerHTML += `
+                    <tr>
+                        <td>${prestamo.alumno}</td>
+                        <td>${prestamo.dni}</td>
+                        <td>${prestamo.curso}</td>
+                        <td>${prestamo.libroNombre}</td>
+                        <td>${prestamo.fechaPrestamo}</td>
+                        <td>${prestamo.fechaDevolucion || "-"}</td>
+                        <td><span class="badge ${badgeClass}">${prestamo.estado}</span></td>
+                    </tr>
+                `;
+            });
+
+        }
+
+
+        /* INICIAMOS EL SISTEMA */
+
+        actualizarCatalogo();
+        actualizarListaLibros();
+        actualizarHistorial();
+        mostrarListaDevoluciones();
+
+    </script>
+
+</body>
+</html>

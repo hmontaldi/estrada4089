@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reto Digital | Redes y Diseño Web</title>
+<style>
+:root{--bg:#101827;--panel:#192438;--panel2:#202f48;--text:#f4f7fb;--muted:#aab8ce;--cyan:#55e6d0;--blue:#76a8ff;--pink:#f28fbd;--good:#7ee0a1;--bad:#ff9c9c}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at top left,#243c5c 0,#101827 48%,#0b1220 100%);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);padding:24px}
+.wrap{max-width:850px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#102033;font-size:24px;font-weight:900}.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:800}.brand h1{font-size:20px;margin:3px 0 0}.xpbox{border:1px solid #34445f;background:#172337;border-radius:14px;padding:10px 15px;text-align:right;min-width:105px}.xpbox small{display:block;color:var(--muted);font-size:11px}.xpbox strong{font-size:22px;color:var(--cyan)}
+.card{background:linear-gradient(145deg,rgba(30,44,66,.98),rgba(20,31,48,.98));border:1px solid #34445f;border-radius:24px;padding:clamp(20px,5vw,38px);box-shadow:0 22px 60px #0003}.intro{text-align:center}.intro .bigicon{font-size:54px;margin:4px 0 14px}.intro h2{font-size:clamp(26px,5vw,38px);margin:0 0 10px}.intro p{color:var(--muted);line-height:1.65;max-width:600px;margin:0 auto 24px}.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.level{background:var(--panel2);border:1px solid #3a4b66;border-radius:16px;padding:16px 10px}.level b{display:block;margin:6px 0}.level span{font-size:12px;color:var(--muted)}.level .num{font-size:23px;color:var(--cyan)}
+button{font:inherit;cursor:pointer;border:0;border-radius:13px;padding:13px 18px;font-weight:750;transition:transform .15s,filter .15s}button:hover{filter:brightness(1.08);transform:translateY(-1px)}button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}.primary{background:linear-gradient(110deg,var(--cyan),#8be8ff);color:#102033}.secondary{background:#293953;color:var(--text);border:1px solid #435572}.hidden{display:none!important}
+.status{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:7px;background:#263752;border:1px solid #3c506f;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}.pill em{width:8px;height:8px;border-radius:50%;background:var(--cyan)}.progresswrap{height:8px;background:#0e1727;border-radius:99px;overflow:hidden;margin:12px 0 26px}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:width .25s}.qcount{color:var(--muted);font-size:13px}.question{font-size:clamp(22px,4vw,30px);line-height:1.25;margin:0 0 24px}.answers{display:grid;gap:12px}.answer{display:flex;align-items:center;text-align:left;gap:13px;width:100%;background:#202f48;color:var(--text);border:1px solid #3b4e6c;padding:15px;border-radius:14px;line-height:1.4}.letter{width:32px;height:32px;flex:0 0 32px;border-radius:10px;display:grid;place-items:center;background:#31435f;color:#d9e5f6;font-weight:900}.answer.correct{border-color:var(--good);background:#183b38}.answer.correct .letter{background:var(--good);color:#10251b}.answer.wrong{border-color:var(--bad);background:#452c39}.answer.wrong .letter{background:var(--bad);color:#32151d}.answer:disabled{cursor:default;transform:none}.feedback{margin-top:18px;border-radius:14px;padding:16px;line-height:1.55;border:1px solid #3b4e6c;background:#172338}.feedback.good{border-color:#3e806b}.feedback.bad{border-color:#985466}.feedback strong{display:block;margin-bottom:5px}.feedback p{margin:0;color:#d2dced}.controls{display:flex;justify-content:flex-end;margin-top:20px}.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:16px}.results{text-align:center}.results h2{font-size:34px;margin:10px 0}.score{font-size:48px;color:var(--cyan);font-weight:900;margin:12px}.results p{color:var(--muted);line-height:1.6}.summary{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0}.summary div{background:#202f48;border:1px solid #3b4e6c;padding:14px 20px;border-radius:14px;min-width:110px}.summary b{display:block;font-size:22px}.summary small{color:var(--muted)}footer{text-align:center;color:#8090a8;font-size:12px;padding:20px 0 0}
+@media(max-width:560px){body{padding:14px}.top{align-items:flex-start}.brand h1{font-size:17px}.logo{width:42px;height:42px}.levels{grid-template-columns:1fr}.level{display:flex;align-items:center;gap:12px;text-align:left}.level .num{min-width:36px}.level b{margin:0}.level span{margin-left:auto;text-align:right}.xpbox{padding:8px 11px}.xpbox strong{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">&lt;/&gt;</div><div><div class="eyebrow">Modo aprendizaje</div><h1>Reto Digital</h1></div></div>
+    <div class="xpbox"><small>EXPERIENCIA TOTAL</small><strong id="xpTop">0 XP</strong></div>
+  </header>
+
+  <main>
+    <section id="start" class="card intro">
+      <div class="bigicon">🧠</div>
+      <div class="eyebrow">Redes · Internet · Diseño web</div>
+      <h2>¿Listo para el desafío?</h2>
+      <p>Repasá conceptos digitales en tres niveles. Vas a responder una pregunta por vez. Cada respuesta correcta suma <b>+100 XP</b>; si te equivocás, recibirás una explicación breve antes de continuar.</p>
+      <div class="levels">
+        <div class="level"><div class="num">01</div><div><b>🟢 Básico</b><span>Conceptos esenciales</span></div></div>
+        <div class="level"><div class="num">02</div><div><b>🟡 Intermedio</b><span>Cómo se conectan las ideas</span></div></div>
+        <div class="level"><div class="num">03</div><div><b>🔴 Avanzado</b><span>Aplicación y análisis</span></div></div>
+      </div>
+      <button class="primary" id="startBtn">Comenzar juego →</button>
+      <p class="hint">Consejo: leé todas las opciones antes de elegir.</p>
+    </section>
+
+    <section id="game" class="card hidden" aria-live="polite">
+      <div class="status"><span class="pill"><em></em><span id="levelName">Nivel básico</span></span><span class="qcount" id="qCount">Pregunta 1 de 5</span></div>
+      <div class="progresswrap"><div class="progress" id="progress"></div></div>
+      <h2 class="question" id="question">Pregunta</h2>
+      <div class="answers" id="answers"></div>
+      <div id="feedback" class="feedback hidden" role="status"></div>
+      <div class="controls"><button id="nextBtn" class="primary hidden">Siguiente pregunta →</button></div>
+      <div class="hint">Elegí una sola respuesta. Después de responder podrás avanzar.</div>
+    </section>
+
+    <section id="results" class="card results hidden">
+      <div class="bigicon">🏆</div><div class="eyebrow">Desafío completado</div>
+      <h2>¡Terminaste los tres niveles!</h2>
+      <div class="score" id="finalXP">0 XP</div>
+      <p id="resultMessage">¡Buen trabajo!</p>
+      <div class="summary"><div><b id="correctCount">0</b><small>Correctas</small></div><div><b id="wrongCount">0</b><small>Para repasar</small></div><div><b id="accuracy">0%</b><small>Precisión</small></div></div>
+      <button class="primary" id="restartBtn">Jugar de nuevo ↻</button>
+    </section>
+  </main>
+  <footer>Un paso a la vez: aprender, practicar y mejorar.</footer>
+</div>
+<script>
+const levels = [
+ {name:"Nivel básico", questions:[
+  {q:"¿Qué es una red informática?",a:["Un conjunto de dispositivos conectados para compartir información y recursos","Un programa para dibujar páginas","Un único archivo guardado en una computadora"],c:0,e:"Una red conecta dos o más dispositivos para intercambiar datos y compartir recursos, como archivos, impresoras o conexión a Internet."},
+  {q:"¿Para qué sirve un navegador web?",a:["Para crear cables de red","Para abrir y visualizar sitios y páginas web","Para reemplazar al sistema operativo"],c:1,e:"Un navegador, como Chrome o Firefox, interpreta los contenidos web y permite visitar páginas de Internet."},
+  {q:"¿Qué significa HTML?",a:["Un sistema para proteger contraseñas","Un tipo de conexión inalámbrica","Lenguaje de marcado que estructura el contenido de una página web"],c:2,e:"HTML organiza el contenido de una página mediante elementos como títulos, párrafos, imágenes y enlaces."},
+  {q:"¿Cuál es la función principal de CSS?",a:["Dar estilo y organizar visualmente una página web","Enviar correos electrónicos","Conectar físicamente dos computadoras"],c:0,e:"CSS controla la presentación: colores, tipografías, márgenes, tamaños y distribución de los elementos."},
+  {q:"¿Qué es una dirección IP?",a:["El nombre de un archivo HTML","Un identificador de un dispositivo dentro de una red IP","Un efecto visual de una página"],c:1,e:"La dirección IP permite identificar una interfaz o dispositivo en una red que utiliza el protocolo IP."}
+ ]},
+ {name:"Nivel intermedio", questions:[
+  {q:"En el modelo cliente-servidor, ¿qué hace normalmente el cliente?",a:["Siempre almacena todos los datos del sitio","Solicita un recurso o servicio al servidor","Reemplaza la conexión a Internet"],c:1,e:"El cliente —por ejemplo, el navegador— envía una solicitud. El servidor la procesa y devuelve una respuesta, como una página web."},
+  {q:"¿Qué función cumple JavaScript en una página web?",a:["Añade comportamiento e interactividad","Define únicamente el color de fondo","Es el cable que conecta el router"],c:0,e:"JavaScript permite reaccionar a clics, validar formularios, actualizar contenido y crear interacciones."},
+  {q:"¿Qué dispositivo suele conectar una red local con otras redes, como Internet?",a:["Un teclado","Un monitor","Un router"],c:2,e:"El router dirige paquetes de datos entre redes. En una casa suele conectar la red local con el proveedor de Internet."},
+  {q:"¿Qué diferencia general hay entre un sitio web y una página web?",a:["No existe ninguna diferencia","Un sitio reúne varias páginas relacionadas; una página es un documento web individual","Una página web siempre contiene todo un sitio"],c:1,e:"Una página es una unidad de contenido; un sitio web suele ser un conjunto de páginas vinculadas bajo un mismo dominio."},
+  {q:"¿Qué significa que un diseño web sea adaptable o responsive?",a:["Que se ajusta a distintos tamaños de pantalla","Que solo funciona en computadoras de escritorio","Que no puede incluir imágenes"],c:0,e:"Un diseño responsive adapta la distribución y los tamaños a celulares, tabletas y computadoras para facilitar su uso."}
+ ]},
+ {name:"Nivel avanzado", questions:[
+  {q:"¿Qué ocurre, de forma simplificada, cuando escribís una dirección web y presionás Enter?",a:["El monitor busca directamente el archivo en el teclado","El navegador puede resolver el dominio, conectarse al servidor y solicitar el recurso HTTP/HTTPS","CSS convierte el dominio en una dirección física"],c:1,e:"El navegador suele resolver el dominio mediante DNS, establecer una conexión con el servidor y enviar una solicitud HTTP o HTTPS para obtener el recurso."},
+  {q:"¿Para qué se utiliza HTTPS?",a:["Para dar estructura a los títulos HTML","Para acelerar cualquier computadora sin excepción","Para proteger la comunicación mediante cifrado y ayudar a verificar el servidor"],c:2,e:"HTTPS utiliza TLS para cifrar la comunicación y autenticar el servidor, reduciendo el riesgo de que terceros lean o alteren los datos en tránsito."},
+  {q:"¿Cuál es una buena práctica para que una página sea más accesible?",a:["Usar texto alternativo en imágenes informativas y etiquetas claras en formularios","Transmitir información importante solo con colores","Usar texto muy pequeño para que entre más contenido"],c:0,e:"El texto alternativo comunica el propósito de imágenes informativas a quienes usan lectores de pantalla. Las etiquetas claras también ayudan a comprender y completar formularios."},
+  {q:"Un botón debe mostrar un mensaje cuando la persona hace clic. ¿Qué tecnología se usa principalmente para programar esa acción?",a:["Solo una dirección IP","JavaScript, que puede escuchar el evento de clic y actualizar la página","DNS, porque administra los nombres de dominio"],c:1,e:"JavaScript puede escuchar eventos como un clic y ejecutar una función. HTML crea el botón y CSS define su apariencia."},
+  {q:"Una web carga bien en una computadora, pero en el celular el contenido se sale de la pantalla. ¿Qué conviene revisar primero?",a:["El nombre del proveedor de Internet únicamente","La dirección IP del usuario","Las reglas CSS responsive, los anchos fijos y la configuración del viewport"],c:2,e:"Los anchos rígidos pueden desbordar pantallas pequeñas. Conviene revisar el viewport, usar diseños flexibles y aplicar media queries cuando haga falta."}
+ ]}
+];
+let levelIndex=0, questionIndex=0, xp=0, correct=0, wrong=0, answered=false;
+const $=id=>document.getElementById(id);
+function show(id){["start","game","results"].forEach(x=>$(x).classList.toggle("hidden",x!==id));}
+function updateXP(){$("xpTop").textContent=xp+" XP";}
+function begin(){levelIndex=0;questionIndex=0;xp=0;correct=0;wrong=0;updateXP();show("game");renderQuestion();}
+function renderQuestion(){
+ answered=false;
+ const level=levels[levelIndex], item=level.questions[questionIndex];
+ $("levelName").textContent=level.name;
+ $("qCount").textContent=`Pregunta ${questionIndex+1} de ${level.questions.length}`;
+ const total=levels.reduce((n,l)=>n+l.questions.length,0);
+ const passed=levels.slice(0,levelIndex).reduce((n,l)=>n+l.questions.length,0)+questionIndex;
+ $("progress").style.width=(passed/total*100)+"%";
+ $("question").textContent=item.q;
+ $("answers").innerHTML="";
+ $("feedback").className="feedback hidden";$("feedback").innerHTML="";
+ $("nextBtn").classList.add("hidden");
+ item.a.forEach((answer,i)=>{
+  const btn=document.createElement("button");btn.className="answer";
+  const letter=document.createElement("span");letter.className="letter";letter.textContent=String.fromCharCode(65+i);
+  const label=document.createElement("span");label.textContent=answer;
+  btn.append(letter,label);btn.addEventListener("click",()=>checkAnswer(i));$("answers").appendChild(btn);
+ });
+}
+function checkAnswer(choice){
+ if(answered)return;answered=true;
+ const item=levels[levelIndex].questions[questionIndex];
+ const buttons=[...$("answers").querySelectorAll("button")];
+ buttons.forEach((b,i)=>{b.disabled=true;if(i===item.c)b.classList.add("correct");if(i===choice&&choice!==item.c)b.classList.add("wrong");});
+ const ok=choice===item.c;const box=$("feedback");
+ box.classList.remove("hidden");box.classList.add(ok?"good":"bad");
+ if(ok){xp+=100;correct++;box.innerHTML="<strong>¡Correcto! +100 XP 🎉</strong><p>"+item.e+"</p>";}
+ else{wrong++;box.innerHTML="<strong>No pasa nada: vamos a aprenderlo.</strong><p>"+item.e+"</p>";}
+ updateXP();$("nextBtn").textContent=questionIndex===levels[levelIndex].questions.length-1?(levelIndex===levels.length-1?"Ver resultados →":"Pasar al siguiente nivel →"):"Siguiente pregunta →";
+ $("nextBtn").classList.remove("hidden");
+}
+function next(){
+ if(!answered)return;
+ if(questionIndex<levels[levelIndex].questions.length-1){questionIndex++;renderQuestion();return;}
+ if(levelIndex<levels.length-1){levelIndex++;questionIndex=0;renderQuestion();return;}
+ finish();
+}
+function finish(){
+ show("results");$("finalXP").textContent=xp+" XP";$("correctCount").textContent=correct;$("wrongCount").textContent=wrong;
+ const total=correct+wrong;const pct=Math.round(correct/total*100);$("accuracy").textContent=pct+"%";
+ $("progress").style.width="100%";
+ $("resultMessage").textContent=pct===100?"¡Excelente! Dominaste todos los conceptos.":pct>=70?"¡Muy bien! Repasá las explicaciones de las preguntas que te costaron y vas a seguir mejorando.":"¡Buen esfuerzo! Volvé a jugar y usá las explicaciones para reforzar los conceptos.";
+}
+$("startBtn").addEventListener("click",begin);$("nextBtn").addEventListener("click",next);$("restartBtn").addEventListener("click",()=>{show("start");$("progress").style.width="0%";});updateXP();
+</script>
+</body>
+</html>

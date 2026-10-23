@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fundamentos y Clasificación de Redes</title>
+<style>
+:root{--blue:#2563EB;--cyan:#06B6D4;--mint:#14B8A6;--bg:#F1F5F9;--text:#1E293B;--white:#fff;--muted:#64748B;--border:#CBD5E1;--gold:#D4AF37;--gold-dark:#B8860B;}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--blue),var(--cyan),var(--mint));color:white;box-shadow:0 5px 20px #0f172a22}
+.header-inner{max-width:1150px;margin:auto;padding:18px 20px;display:flex;gap:18px;align-items:center;justify-content:space-between}
+.brand b{display:block;font-size:1.2rem} .brand span{font-size:.86rem;opacity:.9}
+.progress-wrap{width:300px;max-width:42vw} .progress-label{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:5px}
+.progress{height:9px;background:#ffffff44;border-radius:99px;overflow:hidden} .bar{height:100%;width:0;background:#fff;border-radius:99px;transition:.3s}
+.layout{max-width:1150px;margin:auto;display:grid;grid-template-columns:270px 1fr;gap:24px;padding:25px 18px}
+nav{background:white;border:1px solid var(--border);border-radius:18px;padding:14px;align-self:start;position:sticky;top:92px;box-shadow:0 8px 25px #0f172a0d}
+nav button{width:100%;border:0;background:transparent;text-align:left;padding:10px 11px;border-radius:10px;color:var(--text);cursor:pointer;font-weight:600}
+nav button:hover,nav button.active{background:#DBEAFE;color:var(--blue)} nav small{display:block;color:var(--muted);padding:8px 11px}
+main{min-width:0} .lesson{display:none;background:white;border:1px solid var(--border);border-radius:20px;padding:30px;box-shadow:0 10px 30px #0f172a0c;animation:fade .2s ease}
+.lesson.active{display:block} @keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(1.7rem,4vw,2.5rem);margin:.1em 0 .25em} h2{color:var(--blue);margin-top:1.6em} h3{color:#0891B2;margin-top:1.3em}
+ul{padding-left:1.3rem} li{margin:.28rem 0} .example,.source-links{padding:14px 16px;border-left:4px solid var(--cyan);background:#ECFEFF;border-radius:10px;margin:16px 0}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0} .cards3 div{padding:18px;border-radius:15px;background:linear-gradient(135deg,#EFF6FF,#ECFEFF);border:1px solid #BAE6FD} .cards3 b,.cards3 span{display:block} .cards3 b{font-size:1.3rem;color:var(--blue)} .cards3 span{color:var(--muted);font-size:.9rem}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem} th,td{border:1px solid var(--border);padding:10px;text-align:left;vertical-align:top} th{background:#E0F2FE;color:#0F3D6E}
+.nav-actions{display:flex;justify-content:space-between;gap:12px;margin-top:25px} .btn{border:0;border-radius:11px;padding:11px 17px;font-weight:800;cursor:pointer} .primary{background:var(--blue);color:white} .secondary{background:#E2E8F0;color:var(--text)} .primary:hover{filter:brightness(.94)}
+.quiz-card{background:#F8FAFC;border:1px solid var(--border);padding:20px;border-radius:16px;margin:16px 0} .option{display:block;padding:10px;margin:8px 0;border:1px solid var(--border);border-radius:10px;background:white;cursor:pointer} .option:hover{border-color:var(--cyan);background:#F0FDFA}
+.result{display:none;padding:20px;border-radius:15px;margin-top:20px} .pass{background:#DCFCE7;border:1px solid #86EFAC} .fail{background:#FEE2E2;border:1px solid #FCA5A5}
+.certificate{display:none;text-align:center;padding:34px 25px;border:3px solid var(--gold);border-radius:18px;margin-top:20px;background:linear-gradient(135deg,#EFF6FF,#ECFEFF);position:relative;overflow:hidden;box-shadow:0 12px 35px #0f172a18}
+.certificate:before,.certificate:after{content:"✦";position:absolute;color:var(--gold);font-size:42px;opacity:.75}
+.certificate:before{left:18px;top:10px}.certificate:after{right:18px;bottom:5px}
+.certificate h2{color:var(--blue);letter-spacing:1px}
+.certificate h3{color:var(--blue)}
+.certificate .cert-name{color:var(--gold);font-weight:900;font-size:clamp(1.5rem,5vw,2.2rem);text-shadow:0 1px 0 #8a6d1d}
+.cert-line{height:2px;width:70%;margin:12px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.gold-detail{color:var(--gold);font-size:1.3rem;letter-spacing:7px}
+input[type=text]{width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;font-size:1rem}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:.85rem}
+@media(max-width:800px){.layout{grid-template-columns:1fr}nav{position:static;display:grid;grid-template-columns:1fr 1fr;gap:4px}nav small{grid-column:1/-1}.cards3{grid-template-columns:1fr}.lesson{padding:21px}.header-inner{align-items:flex-start;flex-direction:column}.progress-wrap{width:100%;max-width:none}table{font-size:.82rem;display:block;overflow-x:auto;white-space:normal}}
+
+/* PALETA OFICIAL DEL CURSO Y CERTIFICADO */
+:root{
+  --course-blue:#2563EB;
+  --course-cyan:#06B6D4;
+  --course-mint:#14B8A6;
+  --course-bg:#F1F5F9;
+  --course-text:#1E293B;
+  --gold:#D4AF37;
+  --gold-dark:#B8860B;
+}
+
+</style>
+</head>
+<body>
+<header><div class="header-inner">
+<div class="brand"><b>📚 Fundamentos y Clasificación de Redes</b><span>Escuela N.º 4-089 “José Manuel Estrada” · Profesor: García Omar</span></div>
+<div class="progress-wrap"><div class="progress-label"><span id="progressText">Lección 1 de 11</span><span id="progressPct">0%</span></div><div class="progress"><div class="bar" id="bar"></div></div></div>
+</div></header>
+<div class="layout">
+<nav><small>CONTENIDOS</small>
+<button id="nav0" onclick="showLesson(0)">1. Introducción: ¿Qué vamos a estudiar?</button><button id="nav1" onclick="showLesson(1)">2. ¿Qué es una red informática?</button><button id="nav2" onclick="showLesson(2)">3. Internet</button><button id="nav3" onclick="showLesson(3)">4. Conmutación de paquetes</button><button id="nav4" onclick="showLesson(4)">5. Internet, Intranet y Extranet</button><button id="nav5" onclick="showLesson(5)">6. Modelo Cliente/Servidor</button><button id="nav6" onclick="showLesson(6)">7. Modelo Peer-to-Peer (P2P)</button><button id="nav7" onclick="showLesson(7)">8. Sistemas operativos de red</button><button id="nav8" onclick="showLesson(8)">9. Clasificación: LAN, MAN y WAN</button><button id="nav9" onclick="showLesson(9)">10. Repaso: Cliente/Servidor y P2P</button><button id="nav10" onclick="showLesson(10)">11. Repaso: Sistemas operativos de red</button>
+<button id="nav11" onclick="showQuiz(11)">📝 Quiz final</button>
+</nav>
+<main>
+<div id="lessons">
+<section class="lesson" id="lesson0"><h1>Introducción: ¿Qué vamos a estudiar?</h1>
+<h2>¿Qué vamos a estudiar?</h2>
+<p>En este tema vamos a estudiar las redes informáticas, es decir, la forma en que diferentes dispositivos pueden conectarse entre sí para intercambiar información y compartir recursos.</p>
+<p>Vamos a conocer:</p>
+<ul>
+<li>qué es una red informática;</li><li>cuáles son sus elementos principales;</li><li>cómo funciona Internet;</li>
+<li>qué es la conmutación de paquetes;</li><li>qué diferencias existen entre Internet, Intranet y Extranet;</li>
+<li>cómo funcionan los modelos cliente/servidor y P2P;</li><li>qué es un sistema operativo de red;</li>
+<li>y cómo se clasifican las redes según su alcance: LAN, MAN y WAN.</li>
+</ul>
+<h2>¿Por qué es importante?</h2>
+<p>Las redes están presentes prácticamente en todas nuestras actividades digitales. Cuando enviamos un mensaje, miramos un video, usamos una computadora conectada al Wi-Fi, imprimimos un documento desde otro equipo o ingresamos a una página web, estamos utilizando una red.</p>
+<p>Comprender cómo funcionan permite entender mejor la tecnología que utilizamos todos los días.</p>
+<h2>¿Dónde encontramos redes en la vida cotidiana?</h2>
+<ul><li>📱 Un celular conectado al Wi-Fi.</li><li>💻 Computadoras conectadas en una escuela.</li><li>🖨️ Varias computadoras utilizando una misma impresora.</li><li>🎮 Personas jugando en línea.</li><li>🏢 Computadoras conectadas dentro de una empresa.</li><li>🌎 Una persona accediendo a una página web alojada en otro país.</li></ul>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" disabled>← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson1"><h1>¿Qué es una red informática?</h1>
+<h2>¿Qué es una red informática?</h2>
+<p>Una red informática es un conjunto de dos o más dispositivos conectados entre sí para poder comunicarse, intercambiar información y compartir recursos.</p>
+<p>Los dispositivos pueden conectarse mediante cables o de forma inalámbrica.</p>
+<div class="example"><b>Ejemplo:</b> Celular → Wi-Fi → Router → Internet</div>
+<p>El celular se conecta al router mediante Wi-Fi y el router permite comunicarse con otros dispositivos y con Internet.</p>
+<h2>Características de una red</h2>
+<ul><li>Permite compartir información.</li><li>Permite compartir recursos.</li><li>Facilita la comunicación.</li><li>Puede utilizar conexiones cableadas o inalámbricas.</li><li>Puede ser pequeña, como una red doméstica, o enorme, como Internet.</li></ul>
+<h2>Elementos básicos de una red</h2>
+<p>Para que una red pueda funcionar necesita diferentes componentes.</p>
+<h3>💻 Dispositivos finales</h3>
+<p>Son los equipos que utilizan los usuarios.</p>
+<ul><li>computadoras;</li><li>celulares;</li><li>tablets;</li><li>impresoras;</li><li>servidores;</li><li>cámaras IP.</li></ul>
+<h3>🔀 Switch</h3><p>Es un dispositivo que permite conectar diferentes equipos dentro de una misma red local. Por ejemplo, en una escuela puede conectar varias computadoras entre sí.</p>
+<h3>📡 Router</h3><p>Permite conectar diferentes redes y dirigir los datos hacia su destino. En una casa, por ejemplo, el router permite conectar nuestros dispositivos a Internet.</p>
+<h3>📶 Punto de acceso</h3><p>Permite conectar dispositivos de manera inalámbrica mediante Wi-Fi.</p>
+<h3>🔗 Medio de transmisión</h3><p>Es el camino por el cual viajan los datos. Puede ser:</p>
+<ul><li>cable de red;</li><li>fibra óptica;</li><li>ondas de radio/Wi-Fi.</li></ul>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson2"><h1>Internet</h1>
+<h2>Internet</h2>
+<p>Internet es una enorme red mundial formada por millones de redes y dispositivos conectados entre sí. Permite que personas y organizaciones de diferentes lugares puedan intercambiar información y utilizar servicios digitales.</p>
+<h2>Algunos servicios que utilizamos mediante Internet</h2>
+<ul><li>páginas web;</li><li>correo electrónico;</li><li>videollamadas;</li><li>redes sociales;</li><li>videojuegos online;</li><li>almacenamiento en la nube;</li><li>plataformas educativas;</li><li>servicios de streaming.</li></ul>
+<h2>Ejemplo cotidiano</h2>
+<p>Cuando buscamos información en Google desde nuestro celular, nuestro dispositivo envía una solicitud a través de diferentes redes hasta llegar al servidor que contiene la información. Luego la respuesta vuelve hasta nuestro dispositivo.</p>
+<h2>Estructura general de Internet</h2>
+<p>Internet no funciona como una única computadora gigante. Está formada por una gran cantidad de redes interconectadas. La información puede atravesar diferentes redes y dispositivos antes de llegar a su destino.</p>
+<div class="source-links">Recursos del PDF: educ.ar y Cidadão na Rede sobre cómo funciona Internet.</div>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson3"><h1>Conmutación de paquetes</h1>
+<h2>Conmutación de paquetes</h2>
+<p>La conmutación de paquetes es una técnica utilizada para enviar información a través de una red.</p>
+<p>En lugar de enviar toda la información como un único bloque, los datos se dividen en pequeñas unidades llamadas paquetes. Cada paquete contiene información necesaria para poder llegar a su destino.</p>
+<h2>¿Cómo funciona?</h2>
+<p>Cuando enviamos una foto por Internet, la información de la foto puede dividirse en paquetes. Estos viajan por la red y al llegar al dispositivo receptor se vuelven a organizar para reconstruir la imagen.</p>
+<h2>Ventaja</h2>
+<p>Permite utilizar la red de manera eficiente porque diferentes comunicaciones pueden compartir los mismos caminos.</p>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson4"><h1>Internet, Intranet y Extranet</h1>
+<h2>Intranet</h2>
+<p>Una Intranet es una red privada que utiliza tecnologías similares a las de Internet, pero está destinada a los miembros de una organización.</p>
+<p>Por ejemplo, una empresa puede tener una página interna donde sus empleados consultan documentos, horarios, comunicados, información interna y recursos de trabajo.</p>
+<h2>Extranet</h2>
+<p>Una Extranet es una red privada que permite que determinadas personas externas a una organización puedan acceder a algunos recursos.</p>
+<p>Por ejemplo, una empresa puede permitir que sus proveedores ingresen a una plataforma para consultar pedidos o información específica.</p>
+<h2>Para recordar</h2>
+<div class="cards3">
+<div><b>Internet</b><span>→ todos</span></div>
+<div><b>Intranet</b><span>→ organización interna</span></div>
+<div><b>Extranet</b><span>→ organización + externos autorizados</span></div>
+</div>
+<h2>Comparación</h2>
+<table><tr><th>Característica</th><th>Internet</th><th>Intranet</th><th>Extranet</th></tr>
+<tr><td>Acceso</td><td>Público</td><td>Privado</td><td>Privado y limitado</td></tr>
+<tr><td>Usuarios</td><td>Cualquier usuario</td><td>Miembros de una organización</td><td>Miembros y usuarios externos autorizados</td></tr>
+<tr><td>Ejemplo</td><td>Google</td><td>Sistema interno de una empresa</td><td>Portal para proveedores</td></tr>
+<tr><td>Objetivo</td><td>Comunicación y servicios globales</td><td>Comunicación interna</td><td>Compartir información con externos</td></tr>
+</table>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson5"><h1>Modelo Cliente/Servidor</h1>
+<h2>Modelo cliente/servidor</h2>
+<p>El modelo cliente/servidor es una forma de organizar una red en la que:</p>
+<ul><li>el cliente solicita un servicio;</li><li>el servidor proporciona ese servicio.</li></ul>
+<h2>Ejemplo</h2>
+<p>Cuando ingresamos a una página web:</p>
+<ul><li>Nuestro navegador = cliente</li><li>Computadora que almacena la página = servidor</li></ul>
+<p>El cliente realiza una solicitud y el servidor responde.</p>
+<h2>Ventajas</h2>
+<ul><li>Facilita la administración.</li><li>Permite centralizar información.</li><li>Facilita realizar copias de seguridad.</li><li>Permite controlar los accesos.</li></ul>
+<h2>Desventaja</h2>
+<p>Si el servidor principal presenta un problema, los usuarios pueden perder el acceso al servicio.</p>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson6"><h1>Modelo Peer-to-Peer (P2P)</h1>
+<h2>Modelo Peer-to-Peer (P2P)</h2>
+<p>Peer-to-Peer significa “entre pares”.</p>
+<p>En este modelo, los dispositivos pueden comunicarse directamente entre sí sin depender necesariamente de un servidor central. Cada dispositivo puede actuar como cliente y como proveedor de recursos.</p>
+<h2>Ejemplo</h2>
+<p>Una red donde varias computadoras comparten archivos directamente entre ellas.</p>
+<h2>Ventajas</h2>
+<ul><li>No necesita necesariamente un servidor central.</li><li>Puede ser sencilla de implementar.</li><li>Los dispositivos pueden compartir recursos directamente.</li></ul>
+<h2>Desventajas</h2>
+<ul><li>Puede ser más difícil de administrar.</li><li>La seguridad puede ser más complicada.</li><li>No resulta ideal para redes empresariales grandes.</li></ul>
+<h2>Cliente/Servidor vs. P2P</h2>
+<table><tr><th>Cliente/Servidor</th><th>P2P</th></tr>
+<tr><td>Existe un servidor central</td><td>No depende de un servidor central</td></tr>
+<tr><td>El servidor ofrece servicios</td><td>Los dispositivos comparten recursos</td></tr>
+<tr><td>Administración centralizada</td><td>Administración distribuida</td></tr>
+<tr><td>Muy utilizado en empresas</td><td>Útil para redes pequeñas o intercambio directo</td></tr>
+<tr><td>Facilita el control</td><td>Puede ser más difícil de controlar</td></tr></table>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson7"><h1>Sistemas operativos de red</h1>
+<h2>Sistemas operativos de red</h2>
+<p>Un sistema operativo de red es un sistema diseñado para administrar y facilitar los recursos y servicios de una red informática.</p>
+<p>Permite que los dispositivos puedan comunicarse y que los usuarios puedan acceder a recursos de manera organizada y segura.</p>
+<h2>Funciones principales</h2>
+<ul><li>Administrar usuarios.</li><li>Controlar permisos.</li><li>Compartir archivos.</li><li>Administrar impresoras.</li><li>Gestionar recursos de red.</li><li>Proporcionar seguridad.</li><li>Administrar conexiones.</li><li>Realizar determinadas tareas de mantenimiento.</li></ul>
+<h2>Tipos</h2>
+<p>Podemos encontrar sistemas utilizados principalmente en servidores, como:</p>
+<ul><li>Windows Server.</li><li>Linux para servidores.</li><li>UNIX y sistemas derivados.</li></ul>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson8"><h1>Clasificación: LAN, MAN y WAN</h1>
+<h2>Clasificación de redes según su alcance</h2>
+<p>Las redes pueden clasificarse según el área geográfica que cubren.</p>
+<div class="cards3">
+<div><b>LAN</b><span>Local Area Network — Red de Área Local</span></div>
+<div><b>MAN</b><span>Metropolitan Area Network — Red de Área Metropolitana</span></div>
+<div><b>WAN</b><span>Wide Area Network — Red de Área Amplia</span></div>
+</div>
+<h2>LAN</h2>
+<p>Una LAN conecta dispositivos dentro de un área relativamente pequeña.</p>
+<p><b>Ejemplos:</b> una casa, un aula, una escuela, una oficina.</p>
+<ul><li>Alcance reducido.</li><li>Generalmente pertenece a una persona u organización.</li><li>Suele tener buena velocidad.</li><li>Puede utilizar Ethernet o Wi-Fi.</li></ul>
+<h2>MAN</h2>
+<p>Una MAN conecta diferentes redes dentro de un área metropolitana, generalmente una ciudad o una zona urbana extensa.</p>
+<p><b>Ejemplo:</b> una organización que posee diferentes edificios dentro de una misma ciudad y necesita conectar las redes de cada edificio.</p>
+<ul><li>Mayor alcance que una LAN.</li><li>Puede conectar diferentes LAN.</li><li>Puede abarcar una ciudad o zona metropolitana.</li></ul>
+<h2>WAN</h2>
+<p>Una WAN conecta redes ubicadas a grandes distancias. Puede conectar ciudades, países e incluso diferentes continentes.</p>
+<p><b>Ejemplo:</b> Internet es el ejemplo más conocido de una red de alcance mundial que interconecta redes.</p>
+<ul><li>Gran cobertura geográfica.</li><li>Puede conectar diferentes ciudades y países.</li><li>Interconecta múltiples redes.</li><li>Puede utilizar diferentes tecnologías de comunicación.</li></ul>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson9"><h1>Repaso: Cliente/Servidor y P2P</h1>
+<h2>Repaso comparativo</h2>
+<table><tr><th>Cliente/Servidor</th><th>P2P</th></tr>
+<tr><td>Existe un servidor central</td><td>No depende de un servidor central</td></tr>
+<tr><td>El servidor ofrece servicios</td><td>Los dispositivos comparten recursos</td></tr>
+<tr><td>Administración centralizada</td><td>Administración distribuida</td></tr>
+<tr><td>Muy utilizado en empresas</td><td>Útil para redes pequeñas o intercambio directo</td></tr>
+<tr><td>Facilita el control</td><td>Puede ser más difícil de controlar</td></tr>
+</table>
+<h2>Actividad de relación</h2>
+<p><b>1. Cliente/Servidor</b> → Un servidor proporciona servicios o información a los clientes.</p>
+<p><b>2. P2P</b> → Los dispositivos pueden compartir información directamente entre sí.</p>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Siguiente →</button></div></section><section class="lesson" id="lesson10"><h1>Repaso: Sistemas operativos de red</h1>
+<h2>Sistemas operativos de red</h2>
+<p>Un sistema operativo de red es un sistema diseñado para administrar y facilitar los recursos y servicios de una red informática.</p>
+<p>Permite que los dispositivos puedan comunicarse y que los usuarios puedan acceder a recursos de manera organizada y segura.</p>
+<h2>Funciones principales</h2>
+<ul><li>Administrar usuarios.</li><li>Controlar permisos.</li><li>Compartir archivos.</li><li>Administrar impresoras.</li><li>Gestionar recursos de red.</li><li>Proporcionar seguridad.</li><li>Administrar conexiones.</li><li>Realizar determinadas tareas de mantenimiento.</li></ul>
+<h2>Tipos</h2>
+<ul><li>Windows Server.</li><li>Linux para servidores.</li><li>UNIX y sistemas derivados.</li></ul>
+<div class="nav-actions"><button class="btn secondary" onclick="prevLesson()" >← Anterior</button><button class="btn primary" onclick="nextLesson()">Ir al quiz →</button></div></section>
+</div>
+<section class="lesson" id="quiz">
+<h1>📝 Quiz final: Fundamentos y Clasificación de Redes</h1>
+<p>Respondé las preguntas de opción múltiple. Necesitás <b>70% o más</b> para aprobar y habilitar el certificado.</p>
+<div id="quizContainer"></div>
+<button class="btn primary" onclick="gradeQuiz()">Finalizar quiz</button>
+<div id="result" class="result"></div>
+<div id="cert" class="certificate">
+<div class="gold-detail">✦ ✦ ✦</div>
+<h2 style="margin-top:8px">CERTIFICADO DE APROBACIÓN</h2>
+<div class="cert-line"></div>
+<p>Se certifica que</p>
+<div id="studentNamePreview" class="cert-name">Tu nombre</div>
+<input id="studentName" type="text" placeholder="Escribí tu nombre completo" oninput="updateCertificateName()">
+<p>ha aprobado el curso</p>
+<h3>Fundamentos y Clasificación de Redes</h3>
+<p id="certScore"></p>
+<p><b>Escuela N.º 4-089 “José Manuel Estrada”</b><br>Profesor: García Omar</p>
+<div class="gold-detail">✦</div>
+<button class="btn primary" onclick="generateCertificateJPG()">🖼 Generar certificado</button>
+</div>
+</section>
+</main></div>
+<footer>Curso interactivo basado en el material “Plan de estudio: Fundamentos y clasificación de redes”.</footer>
+<script>
+const quiz = [{"q": "Cuando envías una foto por Internet, ¿cómo se transporta la información?", "a": ["Como un único bloque gigante", "Dividida en pequeños paquetes", "Solo mediante Wi-Fi", "Sin pasar por redes"], "c": 1}, {"q": "La Intranet es una red privada pensada para:", "a": ["Cualquier usuario de Internet", "Personas externas sin autorización", "Miembros de una organización", "Solo videojuegos"], "c": 2}, {"q": "En el modelo Cliente/Servidor:", "a": ["No existe servidor", "El cliente solicita y el servidor proporciona el servicio", "Todos los equipos son iguales", "Solo se comparten impresoras"], "c": 1}, {"q": "¿Qué dispositivo permite conectar diferentes redes y dirigir los datos hacia su destino?", "a": ["Switch", "Router", "Tablet", "Punto de acceso"], "c": 1}, {"q": "Una LAN sirve principalmente para conectar equipos:", "a": ["Entre continentes", "Dentro de un área relativamente pequeña", "Solo entre países", "Únicamente por Internet"], "c": 1}, {"q": "Una MAN puede conectar:", "a": ["Solo un celular", "Diferentes redes dentro de una ciudad o zona metropolitana", "Continentes exclusivamente", "Solo una impresora"], "c": 1}, {"q": "Una WAN puede conectar redes ubicadas:", "a": ["En un solo aula", "En una sola casa", "A grandes distancias, incluso entre países", "Solo dentro de una oficina"], "c": 2}, {"q": "¿Cuál es una función de un sistema operativo de red?", "a": ["Administrar usuarios y permisos", "Aumentar físicamente la memoria", "Crear electricidad", "Reemplazar el router"], "c": 0}, {"q": "En P2P, los dispositivos:", "a": ["Dependen siempre de un servidor central", "Pueden compartir recursos directamente", "No pueden comunicarse", "Solo funcionan con fibra óptica"], "c": 1}, {"q": "¿Cuál opción recuerda correctamente las tres redes?", "a": ["LAN = local, MAN = metropolitana, WAN = amplia", "LAN = mundial, MAN = local, WAN = escolar", "LAN = servidor, MAN = cliente, WAN = router", "LAN = Internet, MAN = Wi-Fi, WAN = Bluetooth"], "c": 0}, {"q": "¿Qué es Internet según el material?", "a": ["Una sola computadora gigante", "Una red mundial formada por millones de redes y dispositivos conectados", "Una Intranet empresarial", "Un sistema operativo"], "c": 1}, {"q": "¿Cuál es una ventaja de la conmutación de paquetes?", "a": ["Impide compartir caminos", "Permite usar la red de manera eficiente", "Elimina los routers", "Evita que existan datos"], "c": 1}];
+let current=0, total=11;
+function showLesson(i){
+ current=Math.max(0,Math.min(i,total-1));
+ document.querySelectorAll('.lesson').forEach(x=>x.classList.remove('active'));
+ document.getElementById('lesson'+current).classList.add('active');
+ document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+ document.getElementById('nav'+current).classList.add('active');
+ updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function showQuiz(){document.querySelectorAll('.lesson').forEach(x=>x.classList.remove('active'));document.getElementById('quiz').classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));document.getElementById('nav'+total).classList.add('active');document.getElementById('progressText').textContent='Quiz final';document.getElementById('progressPct').textContent='100%';document.getElementById('bar').style.width='100%';window.scrollTo({top:0,behavior:'smooth'});}
+function updateProgress(){let pct=Math.round(((current+1)/total)*100);document.getElementById('progressText').textContent=`Lección ${current+1} de ${total}`;document.getElementById('progressPct').textContent=pct+'%';document.getElementById('bar').style.width=pct+'%';}
+function nextLesson(){if(current===total-1)showQuiz();else showLesson(current+1)}
+function prevLesson(){if(current>0)showLesson(current-1)}
+function buildQuiz(){document.getElementById('quizContainer').innerHTML=quiz.map((x,i)=>`<div class="quiz-card"><b>${i+1}. ${x.q}</b>${x.a.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${o}</label>`).join('')}</div>`).join('')}
+function updateCertificateName(){let n=document.getElementById('studentName').value.trim()||'Tu nombre';document.getElementById('studentNamePreview').textContent=n}
+function gradeQuiz(){let score=0;quiz.forEach((x,i)=>{let a=document.querySelector(`input[name=q${i}]:checked`);if(a&&+a.value===x.c)score++});let pct=Math.round(score/quiz.length*100);let r=document.getElementById('result');r.style.display='block';r.className='result '+(pct>=70?'pass':'fail');r.innerHTML=`<b>Resultado: ${score}/${quiz.length} — ${pct}%</b><br>${pct>=70?'¡Aprobaste! Ya podés generar tu certificado.':'Todavía no aprobaste. Necesitás 70% o más. Revisá las lecciones y volvé a intentarlo.'}`;if(pct>=70){document.getElementById('cert').style.display='block';document.getElementById('certScore').textContent=`Puntaje obtenido: ${pct}% · Aprobado`;updateCertificateName();}else document.getElementById('cert').style.display='none';r.scrollIntoView({behavior:'smooth',block:'center'})}
+function esc(s){return s.replace(/([\\()])/g,'\\$1')}
+function pdfText(s,x,y,size){return `BT /F1 ${size} Tf ${x} ${y} Td (${esc(s)}) Tj ET\n`}
+function generateCertificateJPG(){
+ const name=document.getElementById('studentName').value.trim()||'Estudiante';
+ const score=document.getElementById('certScore').textContent.trim();
+ const canvas=document.createElement('canvas');
+ canvas.width=1600; canvas.height=1100;
+ const ctx=canvas.getContext('2d');
+ const blue='#2563EB', cyan='#06B6D4', mint='#14B8A6';
+ const bg='#F1F5F9', ink='#1E293B', gold='#D4AF37';
+ // Fondo y marco con la misma paleta del curso.
+ const grad=ctx.createLinearGradient(0,0,1600,1100);
+ grad.addColorStop(0,'#EFF6FF'); grad.addColorStop(.52,'#ECFEFF'); grad.addColorStop(1,bg);
+ ctx.fillStyle=grad; ctx.fillRect(0,0,1600,1100);
+ ctx.lineWidth=18; ctx.strokeStyle=blue; ctx.strokeRect(42,42,1516,1016);
+ ctx.lineWidth=7; ctx.strokeStyle=cyan; ctx.strokeRect(62,62,1476,976);
+ ctx.lineWidth=3; ctx.strokeStyle=mint; ctx.strokeRect(78,78,1444,944);
+ // Detalles decorativos dorados.
+ ctx.fillStyle=gold; ctx.font='bold 58px Georgia, serif'; ctx.textAlign='center';
+ ctx.fillText('✦',125,150); ctx.fillText('✦',1475,150);
+ ctx.fillText('✦',125,990); ctx.fillText('✦',1475,990);
+ ctx.fillStyle=blue; ctx.font='bold 58px Arial, sans-serif';
+ ctx.fillText('CERTIFICADO DE APROBACIÓN',800,280);
+ const line=ctx.createLinearGradient(320,0,1280,0);
+ line.addColorStop(0,'transparent'); line.addColorStop(.25,cyan); line.addColorStop(.5,gold); line.addColorStop(.75,mint); line.addColorStop(1,'transparent');
+ ctx.fillStyle=line; ctx.fillRect(320,320,960,5);
+ ctx.fillStyle=ink; ctx.font='32px Arial, sans-serif';
+ ctx.fillText('Se certifica que',800,410);
+ ctx.fillStyle=gold;
+ let nameSize=64;
+ ctx.font=`bold ${nameSize}px Arial, sans-serif`;
+ while(ctx.measureText(name).width>1250 && nameSize>30){nameSize-=2;ctx.font=`bold ${nameSize}px Arial, sans-serif`;}
+ ctx.fillText(name,800,510);
+ ctx.fillStyle=ink; ctx.font='30px Arial, sans-serif';
+ ctx.fillText('ha aprobado el curso',800,585);
+ ctx.fillStyle=blue; ctx.font='bold 39px Arial, sans-serif';
+ ctx.fillText('Fundamentos y Clasificación de Redes',800,660);
+ ctx.fillStyle=mint; ctx.font='bold 30px Arial, sans-serif';
+ ctx.fillText(score,800,725);
+ ctx.fillStyle=ink; ctx.font='bold 27px Arial, sans-serif';
+ ctx.fillText('Escuela N.º 4-089 “José Manuel Estrada”',800,825);
+ ctx.font='25px Arial, sans-serif';
+ ctx.fillText('Profesor: García Omar',800,870);
+ ctx.fillStyle=gold; ctx.font='bold 38px Georgia, serif';
+ ctx.fillText('✦  ✦  ✦',800,950);
+ canvas.toBlob(blob=>{
+   if(!blob){alert('No se pudo crear la imagen. Intentá nuevamente.');return;}
+   const url=URL.createObjectURL(blob);
+   const a=document.createElement('a');
+   a.href=url; a.download='certificado_fundamentos_redes.jpg';
+   document.body.appendChild(a); a.click(); a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),1500);
+ },'image/jpeg',0.95);
+}
+buildQuiz();showLesson(0);
+</script>
+</body></html>
