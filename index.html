@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cursos y juegos interactivos | Escuela N.º 4-089 “José Manuel Estrada”</title>
+<style>
+  :root{
+    --bg:#f5f8fc; --ink:#1f2d3d; --muted:#5b6b7c; --line:#dbe4ee; --card:#ffffff; --brand:#2a6fb8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+  header{background:#fff;border-bottom:1px solid var(--line);text-align:center;padding:28px 16px 22px}
+  header .school{font-size:.85rem;letter-spacing:.04em;color:var(--muted);margin:0 0 6px}
+  header h1{margin:0 0 6px;font-size:clamp(1.5rem,4vw,2.2rem);color:var(--brand)}
+  header p.sub{margin:0;color:var(--muted);font-size:1rem}
+  main{max-width:1100px;margin:0 auto;padding:26px 16px 40px}
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}
+  a.card:hover,a.card:focus-visible{transform:translateY(-3px);box-shadow:0 8px 22px rgba(31,45,61,.12);outline:none}
+  a.card:focus-visible{border-color:var(--brand)}
+  .thumb{aspect-ratio:16/9;display:block;width:100%}
+  .thumb svg{display:block;width:100%;height:100%}
+  .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .tag{align-self:flex-start;font-size:.72rem;font-weight:600;padding:2px 10px;border-radius:999px;background:#e8f0fa;color:var(--brand)}
+  .card h2{margin:2px 0 0;font-size:1.08rem}
+  .card p{margin:0;color:var(--muted);font-size:.92rem;flex:1}
+  .go{margin-top:8px;font-weight:600;font-size:.9rem;color:var(--brand)}
+  .card.off{opacity:.65;cursor:default}
+  .card.off .tag{background:#eef1f4;color:var(--muted)}
+  .card.off .go{color:var(--muted)}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 30px}
+</style>
+</head>
+<body>
+
+<header>
+  <p class="school">Escuela N.º 4-089 “José Manuel Estrada”</p>
+  <h1>Cursos y juegos interactivos</h1>
+  <p class="sub">Elegí una propuesta para empezar a aprender y jugar</p>
+</header>
+
+<main>
+  <div class="grid">
+
+    <!-- 1 -->
+    <a class="card" href="https://estrada4089.vercel.app/1/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Triángulo rectángulo con cuadrados sobre sus lados"><rect width="320" height="180" fill="#e3eefb"/><g transform="translate(85,52) scale(.65)"><rect x="80" y="90" width="80" height="80" fill="#9fc5ee" stroke="#2a6fb8" stroke-width="3"/><rect x="20" y="30" width="60" height="60" fill="#bfe3d0" stroke="#2f8f68" stroke-width="3"/><polygon points="160,90 80,30 140,-50 220,10" fill="#f8d9a8" stroke="#d98a1f" stroke-width="3"/><polygon points="80,90 160,90 80,30" fill="#fff" stroke="#1f2d3d" stroke-width="3"/></g></svg></span>
+      <span class="body">
+        <span class="tag">Curso · Matemática</span>
+        <h2>Teorema de Pitágoras</h2>
+        <p>Descubrí cómo se relacionan los lados de un triángulo rectángulo. 3 módulos, unos 45 minutos.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+    <!-- 2 -->
+    <a class="card" href="https://estrada4089.vercel.app/2/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Procesador y memoria RAM"><rect width="320" height="180" fill="#e6f4ee"/><g stroke="#2f8f68" stroke-width="4" stroke-linecap="round"><path d="M120 50v18M140 50v18M160 50v18M180 50v18M200 50v18M120 112v18M140 112v18M160 112v18M180 112v18M200 112v18M100 70h18M100 90h18M100 110h18M202 70h18M202 90h18M202 110h18"/></g><rect x="112" y="68" width="96" height="46" rx="6" fill="#bfe3d0" stroke="#2f8f68" stroke-width="3"/><text x="160" y="97" text-anchor="middle" font-family="Arial" font-weight="700" font-size="18" fill="#1f5c43">CPU</text><rect x="70" y="140" width="180" height="20" rx="3" fill="#fff" stroke="#2f8f68" stroke-width="3"/><g fill="#2f8f68"><rect x="82" y="146" width="22" height="8"/><rect x="112" y="146" width="22" height="8"/><rect x="142" y="146" width="22" height="8"/><rect x="172" y="146" width="22" height="8"/><rect x="202" y="146" width="22" height="8"/></g></svg></span>
+      <span class="body">
+        <span class="tag">Curso · Hardware</span>
+        <h2>Arquitectura de Hardware</h2>
+        <p>Procesador, almacenamiento, placa madre, periféricos, conectividad y alimentación. 6 módulos, práctica y evaluación.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+    <!-- 3 -->
+    <a class="card" href="https://estrada4089.vercel.app/3/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Monitor con unos y ceros"><rect width="320" height="180" fill="#ece8fa"/><rect x="85" y="28" width="150" height="100" rx="8" fill="#fff" stroke="#6a55c4" stroke-width="4"/><rect x="97" y="40" width="126" height="76" rx="3" fill="#d9d2f5"/><text x="160" y="70" text-anchor="middle" font-family="monospace" font-weight="700" font-size="20" fill="#4a3a9c">0 1 0 1</text><text x="160" y="98" text-anchor="middle" font-family="monospace" font-weight="700" font-size="20" fill="#4a3a9c">1 0 1 1</text><rect x="148" y="128" width="24" height="14" fill="#6a55c4"/><rect x="122" y="142" width="76" height="8" rx="4" fill="#6a55c4"/></svg></span>
+      <span class="body">
+        <span class="tag">Curso · Informática</span>
+        <h2>Sistemas Digitales y Redes</h2>
+        <p>Sistema binario, compuertas lógicas, memorias y redes. 5 módulos con recorrido guiado.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+    <!-- 4 -->
+    <a class="card" href="https://estrada4089.vercel.app/4/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Red con router y tres dispositivos"><rect width="320" height="180" fill="#e0f3f6"/><g stroke="#1b8a9c" stroke-width="3"><line x1="160" y1="90" x2="70" y2="46"/><line x1="160" y1="90" x2="250" y2="46"/><line x1="160" y1="90" x2="160" y2="152"/></g><circle cx="160" cy="90" r="24" fill="#fff" stroke="#1b8a9c" stroke-width="4"/><path d="M148 92a16 16 0 0 1 24 0M153 98a9 9 0 0 1 14 0" fill="none" stroke="#1b8a9c" stroke-width="3" stroke-linecap="round"/><circle cx="160" cy="103" r="2.5" fill="#1b8a9c"/><rect x="48" y="30" width="44" height="32" rx="4" fill="#b8e4ea" stroke="#1b8a9c" stroke-width="3"/><rect x="228" y="30" width="44" height="32" rx="4" fill="#b8e4ea" stroke="#1b8a9c" stroke-width="3"/><rect x="140" y="140" width="40" height="28" rx="4" fill="#b8e4ea" stroke="#1b8a9c" stroke-width="3"/></svg></span>
+      <span class="body">
+        <span class="tag">Curso · Redes</span>
+        <h2>Fundamentos y Clasificación de Redes</h2>
+        <p>Internet, cliente/servidor, P2P y redes LAN, MAN y WAN. Con quiz final y certificado. Prof. García Omar.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+    <!-- 5 -->
+    <a class="card" href="https://estrada4089.vercel.app/5/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Pila de libros"><rect width="320" height="180" fill="#fdeedb"/><rect x="80" y="112" width="160" height="30" rx="4" fill="#f4b183" stroke="#c0692a" stroke-width="3"/><rect x="96" y="78" width="140" height="30" rx="4" fill="#9fc5ee" stroke="#2a6fb8" stroke-width="3"/><rect x="88" y="44" width="150" height="30" rx="4" fill="#bfe3d0" stroke="#2f8f68" stroke-width="3"/><g stroke-width="3" stroke-linecap="round"><line x1="100" y1="127" x2="140" y2="127" stroke="#c0692a"/><line x1="112" y1="93" x2="150" y2="93" stroke="#2a6fb8"/><line x1="104" y1="59" x2="146" y2="59" stroke="#2f8f68"/></g></svg></span>
+      <span class="body">
+        <span class="tag">Herramienta</span>
+        <h2>Biblioteca Escolar</h2>
+        <p>Sistema para gestionar el catálogo de libros, registrar préstamos y devoluciones y consultar el historial.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+    <!-- 6 -->
+    <a class="card" href="https://estrada4089.vercel.app/6/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Control de videojuego"><rect width="320" height="180" fill="#fbe6ee"/><rect x="70" y="58" width="180" height="68" rx="34" fill="#fff" stroke="#c0457a" stroke-width="4"/><path d="M104 80v28M90 94h28" stroke="#c0457a" stroke-width="8" stroke-linecap="round"/><circle cx="206" cy="82" r="8" fill="#f4b183"/><circle cx="228" cy="94" r="8" fill="#9fc5ee"/><circle cx="206" cy="106" r="8" fill="#bfe3d0"/><circle cx="184" cy="94" r="8" fill="#f8d9a8"/></svg></span>
+      <span class="body">
+        <span class="tag">Juegos</span>
+        <h2>Drive de Preceptores</h2>
+        <p>Juegos educativos sobre nutrición, medio ambiente, convivencia escolar y sistemas digitales, con ranking de puntajes.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+    <!-- 7 -->
+    <a class="card" href="https://estrada4089.vercel.app/7/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Kiosco con toldo a rayas"><rect width="320" height="180" fill="#e5f3df"/><rect x="80" y="82" width="160" height="70" fill="#fff" stroke="#4f9a38" stroke-width="4"/><path d="M70 82 80 44h160l10 38z" fill="#f4b3ae" stroke="#c0453d" stroke-width="3" stroke-linejoin="round"/><g fill="#fff"><path d="M107 44h26l-4 38h-26z"/><path d="M160 44h26l4 38h-26z" transform="translate(-0 0)"/><path d="M213 44h20l8 38h-26z"/></g><path d="M70 82 80 44h160l10 38z" fill="none" stroke="#c0453d" stroke-width="3" stroke-linejoin="round"/><rect x="100" y="100" width="50" height="34" fill="#c8e6b9" stroke="#4f9a38" stroke-width="3"/><rect x="170" y="100" width="50" height="34" fill="#c8e6b9" stroke="#4f9a38" stroke-width="3"/><circle cx="125" cy="117" r="7" fill="#f8d35a"/><rect x="190" y="108" width="10" height="18" rx="2" fill="#9fc5ee"/><rect x="204" y="112" width="10" height="14" rx="2" fill="#f4b183"/></svg></span>
+      <span class="body">
+        <span class="tag">Aplicación</span>
+        <h2>Kiosco Comercial</h2>
+        <p>Tienda con categorías de bebidas, comida, golosinas y snacks, carrito de compras y envío del pedido por WhatsApp.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+    <!-- 8 -->
+    <a class="card" href="https://estrada4089.vercel.app/8/">
+      <span class="thumb"><svg viewBox="0 0 320 180" role="img" aria-label="Podio de tres niveles con una estrella"><rect width="320" height="180" fill="#fff4cf"/><rect x="70" y="112" width="56" height="42" fill="#bfe3d0" stroke="#2f8f68" stroke-width="3"/><rect x="132" y="88" width="56" height="66" fill="#f8e08a" stroke="#c99a12" stroke-width="3"/><rect x="194" y="68" width="56" height="86" fill="#f4b3ae" stroke="#c0453d" stroke-width="3"/><polygon points="222,28 228,44 245,45 232,56 236,73 222,64 208,73 212,56 199,45 216,44" fill="#f8d35a" stroke="#c99a12" stroke-width="3" stroke-linejoin="round"/><g font-family="Arial" font-weight="700" font-size="22" fill="#1f2d3d" text-anchor="middle"><text x="98" y="140">1</text><text x="160" y="140">2</text><text x="222" y="140">3</text></g></svg></span>
+      <span class="body">
+        <span class="tag">Juego</span>
+        <h2>Reto Digital</h2>
+        <p>Preguntas sobre redes, Internet y diseño web en tres niveles: básico, intermedio y avanzado. Cada acierto suma XP.</p>
+        <span class="go">Abrir →</span>
+      </span>
+    </a>
+
+  </div>
+</main>
+
+<footer>Escuela N.º 4-089 “José Manuel Estrada” · Cursos y juegos interactivos</footer>
+
+</body>
+</html>
