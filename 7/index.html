@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#55c8e8">
+  <title>Kiosco Comercial | Escuela José Manuel Estrada</title>
+  <style>
+    :root {
+      --celeste: #55c8e8;
+      --celeste-claro: #e8f8fd;
+      --dorado: #d5ad52;
+      --dorado-claro: #f8edcf;
+      --negro: #171717;
+      --blanco: #fff;
+      --gris: #f4f6f7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--negro);
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, var(--celeste-claro), #fff 420px);
+    }
+    header {
+      background: linear-gradient(120deg, var(--celeste), #a8e8f7);
+      border-bottom: 6px solid var(--dorado);
+      padding: 26px 18px 22px;
+      text-align: center;
+    }
+    .school { font-size: .9rem; font-weight: 700; letter-spacing: .08em; }
+    h1 { margin: 8px 0 4px; font-size: clamp(2rem, 6vw, 3.3rem); }
+    header p { margin: 6px 0 0; }
+    main { width: min(1100px, 94%); margin: 26px auto 50px; }
+    .panel {
+      background: var(--blanco); border: 2px solid #d9eef4;
+      border-radius: 18px; padding: 22px; margin-bottom: 22px;
+      box-shadow: 0 5px 18px #173b4a12;
+    }
+    h2 { margin: 0 0 16px; font-size: 1.35rem; }
+    .student-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    label { display: block; font-weight: 700; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 12px; border: 1.5px solid #a9cbd4;
+      border-radius: 10px; font-size: 1rem; background: #fff;
+    }
+    input:focus { outline: 3px solid #55c8e855; border-color: #1599bd; }
+    .categories { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 18px; }
+    .category-btn {
+      border: 2px solid var(--dorado); border-radius: 999px;
+      background: var(--dorado-claro); color: var(--negro);
+      padding: 10px 16px; font-weight: 700; cursor: pointer;
+    }
+    .category-btn.active, .category-btn:hover { background: var(--dorado); }
+    .products {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 13px;
+    }
+    .product {
+      border: 1px solid #d7e8ed; border-radius: 14px; padding: 15px;
+      background: #fbfeff; display: flex; flex-direction: column; gap: 9px;
+    }
+    .product h3 { margin: 0; font-size: 1.05rem; }
+    .price { color: #775817; font-weight: 700; }
+    .add-btn, .send-btn {
+      border: 0; border-radius: 10px; padding: 12px 15px;
+      font-weight: 700; cursor: pointer; font-size: .98rem;
+    }
+    .add-btn { background: var(--celeste); color: #09232b; margin-top: auto; }
+    .add-btn:hover { background: #35b6d8; }
+    .cart-empty { color: #5d6a6e; margin: 0; }
+    .cart-list { list-style: none; padding: 0; margin: 0; }
+    .cart-item {
+      display: grid; grid-template-columns: 1fr auto auto; align-items: center;
+      gap: 12px; padding: 12px 0; border-bottom: 1px solid #e4ecee;
+    }
+    .quantity { display: flex; align-items: center; gap: 8px; }
+    .quantity button {
+      border: 1px solid #b9d5dc; background: var(--celeste-claro);
+      border-radius: 7px; width: 29px; height: 29px; cursor: pointer; font-weight: 700;
+    }
+    .remove { border: 0; background: transparent; color: #a02b2b; cursor: pointer; }
+    .total {
+      display: flex; justify-content: space-between; font-size: 1.2rem;
+      font-weight: 800; padding-top: 17px;
+    }
+    .send-btn { background: #20b866; color: white; width: 100%; margin-top: 18px; }
+    .send-btn:hover { background: #169c54; }
+    .send-btn:disabled { opacity: .45; cursor: not-allowed; }
+    .note { color: #58666b; font-size: .88rem; line-height: 1.45; }
+    footer { text-align: center; padding: 20px; background: var(--celeste-claro); border-top: 3px solid var(--dorado); }
+    @media (max-width: 700px) {
+      .student-grid { grid-template-columns: 1fr; }
+      .panel { padding: 17px; }
+      .cart-item { grid-template-columns: 1fr auto; }
+      .cart-item .remove { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="school">ESCUELA N.º 4-089 · JOSÉ MANUEL ESTRADA</div>
+    <h1>Kiosco Comercial</h1>
+    <p>"Una Escuela para todos y por todos"</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>1. Datos del alumno</h2>
+      <div class="student-grid">
+        <div>
+          <label for="nombre">Nombre</label>
+          <input id="nombre" type="text" placeholder="Tu nombre" autocomplete="given-name">
+        </div>
+        <div>
+          <label for="apellido">Apellido</label>
+          <input id="apellido" type="text" placeholder="Tu apellido" autocomplete="family-name">
+        </div>
+        <div>
+          <label for="curso">Curso y división</label>
+          <input id="curso" type="text" placeholder="Ej.: 2.º A">
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>2. Elegí una categoría</h2>
+      <div class="categories" id="categories"></div>
+      <div class="products" id="products" aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <h2>3. Mi carrito</h2>
+      <ul class="cart-list" id="cart"></ul>
+      <p class="cart-empty" id="empty">Todavía no agregaste productos.</p>
+      <div class="total"><span>Total</span><span id="total">$0</span></div>
+      <button class="send-btn" id="send" disabled>Enviar pedido por WhatsApp</button>
+      <p class="note">Al tocar el botón, se abrirá WhatsApp con los datos del alumno, el detalle del pedido y el total. Revisá el mensaje y presioná “Enviar” en WhatsApp para confirmar.</p>
+    </section>
+  </main>
+
+  <footer> Kiosco Comercial · Escuela N.º 4-089 José Manuel Estrada </footer>
+
+  <script>
+    // EDITÁ este catálogo para agregar productos y actualizar los precios.
+    // Los precios de ejemplo están expresados en pesos argentinos.
+    const catalogo = [
+      { id: 1, nombre: "Agua", categoria: "Bebidas", precio: 1000 },
+      { id: 2, nombre: "Jugo", categoria: "Bebidas", precio: 1200 },
+      { id: 3, nombre: "Gaseosa", categoria: "Bebidas", precio: 1500 },
+      { id: 4, nombre: "Sándwich", categoria: "Comida", precio: 2500 },
+      { id: 5, nombre: "Tostado", categoria: "Comida", precio: 2800 },
+      { id: 6, nombre: "Alfajor", categoria: "Golosinas", precio: 900 },
+      { id: 7, nombre: "Caramelos", categoria: "Golosinas", precio: 300 },
+      { id: 8, nombre: "Papas", categoria: "Snacks", precio: 1300 },
+      { id: 9, nombre: "Galletitas", categoria: "Snacks", precio: 1100 }
+    ];
+
+    const categorias = ["Bebidas", "Comida", "Golosinas", "Snacks"];
+    const carrito = {};
+    let categoriaActiva = "Bebidas";
+    const formatoPrecio = valor => "$" + valor.toLocaleString("es-AR");
+
+    function mostrarCategorias() {
+      document.getElementById("categories").innerHTML = categorias.map(cat =>
+        `<button class="category-btn ${cat === categoriaActiva ? "active" : ""}" data-cat="${cat}">${cat}</button>`
+      ).join("");
+      document.querySelectorAll(".category-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          categoriaActiva = btn.dataset.cat;
+          mostrarCategorias();
+          mostrarProductos();
+        });
+      });
+    }
+
+    function mostrarProductos() {
+      const productos = catalogo.filter(p => p.categoria === categoriaActiva);
+      document.getElementById("products").innerHTML = productos.map(p => `
+        <article class="product">
+          <h3>${p.nombre}</h3>
+          <div class="price">${formatoPrecio(p.precio)}</div>
+          <button class="add-btn" data-id="${p.id}">Agregar al carrito</button>
+        </article>
+      `).join("");
+      document.querySelectorAll(".add-btn").forEach(btn => {
+        btn.addEventListener("click", () => agregar(Number(btn.dataset.id)));
+      });
+    }
+
+    function agregar(id) {
+      carrito[id] = (carrito[id] || 0) + 1;
+      mostrarCarrito();
+    }
+
+    function cambiarCantidad(id, cambio) {
+      carrito[id] = (carrito[id] || 0) + cambio;
+      if (carrito[id] <= 0) delete carrito[id];
+      mostrarCarrito();
+    }
+
+    function mostrarCarrito() {
+      const items = Object.entries(carrito);
+      const lista = document.getElementById("cart");
+      document.getElementById("empty").style.display = items.length ? "none" : "block";
+      lista.innerHTML = items.map(([id, cantidad]) => {
+        const p = catalogo.find(item => item.id === Number(id));
+        return `<li class="cart-item">
+          <span><strong>${p.nombre}</strong><br><small>${formatoPrecio(p.precio)} c/u</small></span>
+          <span class="quantity">
+            <button aria-label="Quitar uno de ${p.nombre}" data-id="${id}" data-change="-1">−</button>
+            <strong>${cantidad}</strong>
+            <button aria-label="Agregar uno de ${p.nombre}" data-id="${id}" data-change="1">+</button>
+          </span>
+          <button class="remove" data-remove="${id}">Quitar</button>
+        </li>`;
+      }).join("");
+
+      lista.querySelectorAll("[data-change]").forEach(btn => {
+        btn.addEventListener("click", () => cambiarCantidad(Number(btn.dataset.id), Number(btn.dataset.change)));
+      });
+      lista.querySelectorAll("[data-remove]").forEach(btn => {
+        btn.addEventListener("click", () => { delete carrito[btn.dataset.remove]; mostrarCarrito(); });
+      });
+
+      const total = items.reduce((suma, [id, cantidad]) => {
+        const p = catalogo.find(item => item.id === Number(id));
+        return suma + p.precio * cantidad;
+      }, 0);
+      document.getElementById("total").textContent = formatoPrecio(total);
+      document.getElementById("send").disabled = items.length === 0;
+    }
+
+    document.getElementById("send").addEventListener("click", () => {
+      const nombre = document.getElementById("nombre").value.trim();
+      const apellido = document.getElementById("apellido").value.trim();
+      const curso = document.getElementById("curso").value.trim();
+
+      if (!nombre || !apellido || !curso) {
+        alert("Completá tu nombre, apellido y curso antes de enviar el pedido.");
+        return;
+      }
+      if (!Object.keys(carrito).length) {
+        alert("Agregá al menos un producto al carrito.");
+        return;
+      }
+
+      const detalle = Object.entries(carrito).map(([id, cantidad]) => {
+        const p = catalogo.find(item => item.id === Number(id));
+        return `• ${p.nombre} x ${cantidad} = ${formatoPrecio(p.precio * cantidad)}`;
+      }).join("\n");
+      const total = Object.entries(carrito).reduce((suma, [id, cantidad]) => {
+        const p = catalogo.find(item => item.id === Number(id));
+        return suma + p.precio * cantidad;
+      }, 0);
+
+      const mensaje = `¡Hola! Quiero realizar un pedido en el Kiosco Comercial.\n\n` +
+        `Alumno: ${nombre} ${apellido}\nCurso: ${curso}\n\n` +
+        `PEDIDO:\n${detalle}\n\nTOTAL: ${formatoPrecio(total)}`;
+      // Formato internacional de Argentina. Confirmá que este número tenga WhatsApp.
+      const telefono = "5492634805112";
+      const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
+    });
+
+    mostrarCategorias();
+    mostrarProductos();
+    mostrarCarrito();
+  </script>
+</body>
+</html>
